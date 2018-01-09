@@ -1,7 +1,6 @@
 package org.openauto.webviewauto;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,20 +11,17 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.google.android.apps.auto.sdk.CarActivity;
 
 import org.openauto.webviewauto.fragments.BrowserFragment;
-import org.openauto.webviewauto.keyboard.KeyboardHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WebViewAutoActivity extends CarActivity {
 
-    private enum BrowserInputMode {
+    public enum BrowserInputMode {
         URL_INPUT_MODE, CONTENT_INPUT_MODE
     }
 
@@ -39,8 +35,6 @@ public class WebViewAutoActivity extends CarActivity {
     public String currentBrowserMode = "MOBILE";
 
     public List<String> urlHistory = new ArrayList<>();
-
-    public KeyboardHandler handler = new KeyboardHandler();
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -133,39 +127,84 @@ public class WebViewAutoActivity extends CarActivity {
         }
     }
 
+    public void openDrawer() {
+        WebView webview = (WebView)findViewById(R.id.webview_component);
+        webview.post(() -> getCarUiController().getDrawerController().openDrawer());
+    }
+
+    public void toggleURLKeyboard(String currentURL) {
+        WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        keyboard.post(() -> {
+            keyboard.evaluateJavascript("javascript:setInput('" + currentURL + "');", null);
+            keyboard.evaluateJavascript("javascript:$(\".input-row input\").focus();", null);
+        });
+        toggleKeyboard(BrowserInputMode.URL_INPUT_MODE);
+    }
+
+    public void toggleKeyboard(BrowserInputMode newInputMode) {
+        this.inputMode = newInputMode;
+        WebView webview = (WebView)findViewById(R.id.webview_component);
+        WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        keyboard.post(() -> {
+            if(webview.getVisibility() == View.GONE){
+                webview.setVisibility(View.VISIBLE);
+                keyboard.setVisibility(View.GONE);
+            } else {
+                webview.setVisibility(View.GONE);
+                keyboard.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
     public void showKeyboard() {
         WebView webview = (WebView)findViewById(R.id.webview_component);
-        LinearLayout keyboard = (LinearLayout)findViewById(R.id.browser_keyboard);
-        webview.setVisibility(View.GONE);
-        keyboard.setVisibility(View.VISIBLE);
+        WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        keyboard.post(() -> {
+            webview.setVisibility(View.GONE);
+            keyboard.setVisibility(View.VISIBLE);
+        });
     }
 
     public void hideKeyboard() {
         WebView webview = (WebView)findViewById(R.id.webview_component);
-        LinearLayout keyboard = (LinearLayout)findViewById(R.id.browser_keyboard);
-        webview.setVisibility(View.VISIBLE);
-        keyboard.setVisibility(View.GONE);
+        WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        keyboard.post(() -> {
+            webview.setVisibility(View.VISIBLE);
+            keyboard.setVisibility(View.GONE);
+        });
+    }
+
+    public void submitForm(){
+        WebView webview = (WebView)findViewById(R.id.webview_component);
+        webview.post(() -> {
+            webview.evaluateJavascript("document.activeElement.form.submit();", null);
+        });
     }
 
     public void sendURLToCar(String enteredText){
-        final EditText browser_url_input = (EditText)findViewById(R.id.browser_url_input);
-        browser_url_input.setText(enteredText);
+        changeURL(enteredText);
+    }
+
+    public void keyboardInputCallback(String str){
+        if(BrowserInputMode.URL_INPUT_MODE == inputMode){
+            changeURL(str);
+        } else {
+            sendStringToCar(str);
+            hideKeyboard();
+        }
     }
 
     public void sendStringToCar(String enteredText){
         WebView wbb = (WebView)findViewById(R.id.webview_component);
-        wbb.evaluateJavascript("document.activeElement.value = '" + enteredText + "';", null);
-    }
-
-    public void keyInputCallback(String enteredKey){
-        final EditText browser_url_input = (EditText)findViewById(R.id.browser_url_input);
-        browser_url_input.getText().insert(browser_url_input.getSelectionStart(), enteredKey);
+        wbb.post(() -> wbb.evaluateJavascript("document.activeElement.value = '" + enteredText + "';", null));
     }
 
     public void changeURL(String url){
         //set the new url into the url input bar
-        final EditText browser_url_input = (EditText)findViewById(R.id.browser_url_input);
-        browser_url_input.setText(url);
+        WebView html5_menu = (WebView)findViewById(R.id.html5_menu);
+        //TODO: find a way to get rid of timeout
+        html5_menu.post(() -> html5_menu.loadUrl("javascript:setTimeout(function(){setURL('"+url+"')},200);"));
+
         //load the new url
         WebView wbb = (WebView)findViewById(R.id.webview_component);
         //Add URLs for Desktop mode here
@@ -215,70 +254,34 @@ public class WebViewAutoActivity extends CarActivity {
         wbb.setWebViewClient(new WebViewClient());
         CookieManager.getInstance().setAcceptThirdPartyCookies(wbb,true);
 
-        //Uncomment these lines to emulate a desktop PC - Use for special requirements
-        //setDesktopMode();
-
-        wbb.loadUrl(currentURL);
-        urlHistory.add(currentURL);
-
-        //init ui elements
-        final EditText browser_url_input = (EditText)findViewById(R.id.browser_url_input);
-        browser_url_input.setText(currentURL);
+        //init menu
+        final WebView menu = (WebView)findViewById(R.id.html5_menu);
+        WebSettings menusettings= menu.getSettings();
+        menusettings.setJavaScriptEnabled(true);
+        menusettings.setAllowContentAccess(true);
+        menusettings.setAllowFileAccess(true);
+        menusettings.setAllowFileAccessFromFileURLs(true);
+        menu.setWebChromeClient(new WebChromeClient());
+        menu.setWebViewClient(new WebViewClient());
+        menu.addJavascriptInterface(new HTMLInterfaceMenu(this), "Android");
+        menu.loadUrl("file:///android_asset/menu/menu.html");
 
         //init keyboard
-        final LinearLayout keyboard = (LinearLayout)findViewById(R.id.browser_keyboard);
-        loadKeyboard(fragment.getContext());
+        final WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        WebSettings keyboardSettings= keyboard.getSettings();
+        keyboardSettings.setJavaScriptEnabled(true);
+        keyboardSettings.setAllowContentAccess(true);
+        keyboardSettings.setAllowFileAccess(true);
+        keyboardSettings.setAllowFileAccessFromFileURLs(true);
+        keyboard.setScrollbarFadingEnabled(false);
+        keyboard.setWebChromeClient(new WebChromeClient());
+        keyboard.setWebViewClient(new WebViewClient());
+        keyboard.addJavascriptInterface(new HTMLInterfaceKeyboard(this), "Android");
+        keyboard.loadUrl("file:///android_asset/keyboard/kb.html");
 
-        findViewById(R.id.browser_url_menu).setOnClickListener(view -> {
-            //open menu -> Features todo: Favorites, Back, Forward etc.
-            getCarUiController().getDrawerController().openDrawer();
-        });
-        findViewById(R.id.browser_url_keyboard_toggle).setOnClickListener(view -> {
-            if(browser_url_input.hasFocus() && keyboard.getVisibility() == View.GONE){
-                inputMode = BrowserInputMode.URL_INPUT_MODE;
-                showKeyboard();
-                return;
-            }
-            if(!browser_url_input.hasFocus() && keyboard.getVisibility() == View.GONE){
-                inputMode = BrowserInputMode.CONTENT_INPUT_MODE;
-                browser_url_input.setText("");
-                showKeyboard();
-                return;
-            }
-            if(keyboard.getVisibility() == View.VISIBLE){
-                hideKeyboard();
-            }
-        });
-        findViewById(R.id.browser_url_backspace).setOnClickListener(view -> {
-            String oldContent = browser_url_input.getText().toString();
-            int selStart = browser_url_input.getSelectionStart();
-            if(oldContent.length() != 0 && selStart > 0){
-                browser_url_input.getText().delete(selStart-1, selStart);
-            }
-        });
-        findViewById(R.id.browser_url_ok).setOnClickListener(view -> {
-            if(inputMode == BrowserInputMode.URL_INPUT_MODE){
-                String newURL = browser_url_input.getText().toString();
-                changeURL(newURL);
-            }
-            if(inputMode == BrowserInputMode.CONTENT_INPUT_MODE){
-                wbb.evaluateJavascript("document.activeElement.value = '" + browser_url_input.getText().toString() + "';", null);
-                browser_url_input.setText(currentURL);
-            }
-            //remove keyboard
-            hideKeyboard();
-        });
+        //set initial url
+        changeURL(currentURL);
 
-        findViewById(R.id.browser_url_submit).setOnClickListener(view -> {
-            wbb.evaluateJavascript("document.activeElement.form.submit();", null);
-        });
-
-    }
-
-    public void loadKeyboard(Context context){
-        final LinearLayout keyboard = (LinearLayout)findViewById(R.id.browser_keyboard);
-        keyboard.removeAllViews();
-        keyboard.addView(handler.createKeyboardView(this, context));
     }
 
 }

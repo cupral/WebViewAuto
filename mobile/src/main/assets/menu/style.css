@@ -13,13 +13,13 @@ html, body {
 }
 .menuItem {
     font-family: "Material";
-    padding: 5px;
+    padding: 10px;
     border: 3px solid black;
     color: white;
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
-    background: teal;
+    background: #4283f4;
 }
 .menuItemUrl{
     border: 3px solid black;

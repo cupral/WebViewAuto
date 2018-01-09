@@ -14,11 +14,8 @@ public class HTMLInterfaceKeyboard {
     @JavascriptInterface
     public void submitInput(String str) {
         if (context instanceof WebViewAutoActivity){
-            ((WebViewAutoActivity)context).sendStringToCar(str);
-            ((WebViewAutoActivity)context).hideKeyboard();
+            ((WebViewAutoActivity)context).keyboardInputCallback(str);
         }
     }
-
-
 
 }

@@ -21,7 +21,7 @@ public class HTMLInterfaceMenu {
     @JavascriptInterface
     public void toggleKeyboard(String str) {
         if (context instanceof WebViewAutoActivity){
-            ((WebViewAutoActivity)context).toggleKeyboard();
+            ((WebViewAutoActivity)context).toggleKeyboard(WebViewAutoActivity.BrowserInputMode.CONTENT_INPUT_MODE);
         }
     }
 

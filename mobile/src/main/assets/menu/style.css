@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Material';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../common/fonts/materialdesignicons.ttf") format('truetype');
+}
+
+html, body {
+    background: black;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+.menuItem {
+    font-family: "Material";
+    padding: 5px;
+    border: 3px solid black;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    background: teal;
+}
+.menuItemUrl{
+    border: 3px solid black;
+}
+.urlInput {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}

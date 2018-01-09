@@ -1,0 +1,159 @@
+@font-face {
+    font-family: 'OpenSansCondensed-Light';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../common/fonts/OpenSansCondensed-Light.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'OpenSansCondensed-Bold';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../common/fonts/OpenSansCondensed-Bold.ttf") format('truetype');
+}
+
+body,
+html {
+    font-family: 'OpenSansCondensed-Light';
+    background: #1a1a1a;
+    height: 100%;
+    margin: 0;
+}
+
+.key {
+    display: inline-block;
+    background: #333333;
+    color: white;
+    font-weight: bold;
+    height: 100%;
+    box-sizing: border-box;
+    border: 3px solid #1a1a1a;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.key span {
+    margin-left: 5px;
+}
+
+.key:hover {
+    color: #333333;
+    background: rgba(255, 255, 255, 0.534);
+}
+
+.key-pressed {
+    background: #1994ce !important;
+    color: white !important;
+}
+
+.key-1st {
+    color: #808080;
+    height: 50%;
+    width: 100%;
+    line-height: 100%;
+}
+
+.key-2nd {
+    float: right;
+    height: 50%;
+    text-align: right;
+    line-height: 100%;
+}
+
+.key-1st-active {
+    color: white;
+}
+
+.key-2nd-inactive {
+    color: #808080;
+}
+
+.x1 {
+    width: 7%;
+}
+
+.x2 {
+    width: 10%;
+}
+
+.x3 {
+    width: 13%;
+}
+
+.x20 {
+    width: 20%;
+}
+
+.x50 {
+    width: 50%;
+}
+
+.layout {
+    height: 85%
+}
+
+.input-row {
+    height: 15%;
+    border-top: 6px solid #1a1a1a;
+    border-left: 6px solid #1a1a1a;
+    border-right: 6px solid #1a1a1a;
+    box-sizing: border-box;
+}
+
+.input-row input {
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+    font-family: 'OpenSansCondensed-Bold';
+    font-weight: bold;
+    font-size: 150%;
+    padding: 3px;
+}
+
+.key-row {
+    height: 20%;
+    box-sizing: border-box;
+    display: flex;
+}
+
+
+/* Border styles */
+
+.top-l {
+    border-top: 6px solid #1a1a1a;
+    border-left: 6px solid #1a1a1a;
+}
+
+.top-m {
+    border-top: 6px solid #1a1a1a;
+}
+
+.top-r {
+    border-top: 6px solid #1a1a1a;
+    border-right: 6px solid #1a1a1a;
+}
+
+.mid-l {
+    border-left: 6px solid #1a1a1a;
+}
+
+.mid-r {
+    border-right: 6px solid #1a1a1a;
+}
+
+.bottom-l {
+    border-left: 6px solid #1a1a1a;
+    border-bottom: 6px solid #1a1a1a;
+}
+
+.bottom-m {
+    border-bottom: 6px solid #1a1a1a;
+}
+
+.bottom-r {
+    border-bottom: 6px solid #1a1a1a;
+    border-right: 6px solid #1a1a1a;
+}
+
+11

@@ -1,6 +1,9 @@
 function openMenu() {
     Android.openMenu("");
 }
-function openKeyboard() {
-    Android.openKeyboard("");
+function toggleKeyboard() {
+    Android.toggleKeyboard("");
+}
+function setURL(url){
+    $(".urlInput").val(url);
 }

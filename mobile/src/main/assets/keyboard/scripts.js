@@ -22,6 +22,10 @@ function switchLayout(iso) {
 
 switchLayout("de");
 
+function setInput(str){
+    $(".input-elm").val(str);
+}
+
 function swapKeyCols() {
     $(".key-1st").toggleClass("key-1st-active");
     $(".key-2nd").toggleClass("key-2nd-inactive");

@@ -25,5 +25,19 @@ public class HTMLInterfaceMenu {
         }
     }
 
+    @JavascriptInterface
+    public void toggleURLKeyboard(String str) {
+        if (context instanceof WebViewAutoActivity){
+            ((WebViewAutoActivity)context).toggleURLKeyboard(str);
+        }
+    }
+
+    @JavascriptInterface
+    public void submitForm(String str) {
+        if (context instanceof WebViewAutoActivity){
+            ((WebViewAutoActivity)context).submitForm();
+        }
+    }
+
 
 }

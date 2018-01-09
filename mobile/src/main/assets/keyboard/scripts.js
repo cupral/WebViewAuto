@@ -68,7 +68,7 @@ function createClickHandlers() {
                     $(".input-row input").val("");
                     return;
                 }
-                if (text === 'Enter') {
+                if (text === '\uf133') {
                     console.log("Submit: " + $(".input-row input").val());
                     submitInput($(".input-row input").val());
                     return;

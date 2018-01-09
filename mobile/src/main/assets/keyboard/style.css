@@ -1,4 +1,11 @@
 @font-face {
+    font-family: 'Material';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../common/fonts/materialdesignicons.ttf") format('truetype');
+}
+
+@font-face {
     font-family: 'OpenSansCondensed-Light';
     font-style: normal;
     font-weight: 400;
@@ -42,7 +49,7 @@ html {
 }
 
 .key-pressed {
-    background: #1994ce !important;
+    background: #4283f4 !important;
     color: white !important;
 }
 
@@ -156,4 +163,8 @@ html {
     border-right: 6px solid #1a1a1a;
 }
 
-11
+.enterKey {
+    font-family: 'Material';
+    background: #4283f4;
+    font-size: 150%;
+}

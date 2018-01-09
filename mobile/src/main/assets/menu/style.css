@@ -6,28 +6,46 @@
 }
 
 html, body {
-    background: black;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-}
-.menuItem {
-    font-family: "Material";
-    padding: 10px;
-    border: 3px solid black;
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    box-sizing: border-box;
-    background: #4283f4;
-}
-.menuItemUrl{
-    border: 3px solid black;
-}
-.urlInput {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    font-size: 110%;
-    padding: 5px;
-}
+     background: black;
+     height: 100%;
+     width: 100%;
+     margin: 0;
+ }
+ .menuItem {
+     font-family: "Material";
+     padding: 12px;
+     color: white;
+     display: inline-flex;
+     align-items: center;
+     box-sizing: border-box;
+     background: #4283f4;
+ }
+ .menuItem-left {
+     border-left: 4px solid black;
+     border-top: 4px solid black;
+     border-right: 2px solid black;
+     border-bottom: 4px solid black;
+ }
+ .menuItem-mid {
+     border-left: 2px solid black;
+     border-top: 4px solid black;
+     border-bottom: 4px solid black;
+     border-right: 4px solid black;
+ }
+ .menuItem-right {
+     border-left: 4px solid black;
+     border-top: 4px solid black;
+     border-bottom: 4px solid black;
+     border-right: 4px solid black;
+ }
+ .menuItemUrl{
+     border-top: 4px solid black;
+     border-bottom: 4px solid black;
+ }
+ .urlInput {
+     width: 100%;
+     height: 100%;
+     box-sizing: border-box;
+     font-size: 110%;
+     padding: 5px;
+ }

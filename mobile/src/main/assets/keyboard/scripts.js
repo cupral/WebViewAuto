@@ -37,6 +37,10 @@ function swapLetterCase() {
     });
 }
 
+function submitInput(str){
+    Android.submitInput(str);
+}
+
 function createClickHandlers() {
 
     $(".key").each(function(i, e) {
@@ -62,6 +66,7 @@ function createClickHandlers() {
                 }
                 if (text === 'Enter') {
                     console.log("Submit: " + $(".input-row input").val());
+                    submitInput($(".input-row input").val());
                     return;
                 }
                 if (text === 'Caps') {

@@ -28,6 +28,7 @@ public class WebViewAutoActivity extends CarActivity {
     private static final String CURRENT_FRAGMENT_KEY = "app_current_fragment";
     private String mCurrentFragmentTag;
 
+    public boolean browserInitialized = false;
     public String homeURL = "https://duckduckgo.com";
     public String currentURL = homeURL;
     public BrowserInputMode inputMode = BrowserInputMode.URL_INPUT_MODE;
@@ -217,7 +218,7 @@ public class WebViewAutoActivity extends CarActivity {
         //set the new url into the url input bar
         WebView html5_menu = (WebView)findViewById(R.id.html5_menu);
         //TODO: find a way to get rid of timeout
-        html5_menu.post(() -> html5_menu.loadUrl("javascript:setTimeout(function(){setURL('"+url+"')},400);"));
+        html5_menu.post(() -> html5_menu.loadUrl("javascript:setURL('"+url+"');"));
 
         //load the new url
         WebView wbb = (WebView)findViewById(R.id.webview_component);
@@ -259,6 +260,10 @@ public class WebViewAutoActivity extends CarActivity {
     @SuppressLint("SetJavaScriptEnabled")
     public void updateBrowserFragment(Fragment fragment) {
 
+        if(browserInitialized){
+            return;
+        }
+
         //load web view
         WebView wbb = (WebView)findViewById(R.id.webview_component);
         WebSettings wbset=wbb.getSettings();
@@ -276,7 +281,13 @@ public class WebViewAutoActivity extends CarActivity {
         menusettings.setAllowFileAccess(true);
         menusettings.setAllowFileAccessFromFileURLs(true);
         menu.setWebChromeClient(new WebChromeClient());
-        menu.setWebViewClient(new WebViewClient());
+        menu.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                //change URL when page has been loaded
+                changeURL(currentURL);
+            }
+        });
+
         menu.addJavascriptInterface(new HTMLInterfaceMenu(this), "Android");
         menu.loadUrl("file:///android_asset/menu/menu.html");
 
@@ -293,8 +304,7 @@ public class WebViewAutoActivity extends CarActivity {
         keyboard.addJavascriptInterface(new HTMLInterfaceKeyboard(this), "Android");
         keyboard.loadUrl("file:///android_asset/keyboard/kb.html");
 
-        //set initial url
-        changeURL(currentURL);
+        browserInitialized = true;
 
     }
 

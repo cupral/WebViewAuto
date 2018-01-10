@@ -23,10 +23,10 @@ public class FavoriteManager {
 
     private static List<FavoriteEnt> getDefaultFavorites(){
         List<FavoriteEnt> favorites = new ArrayList<>();
-        favorites.add(new FavoriteEnt("MENU_FAVORITES_YouTube","YouTube","https://www.youtube.com/"));
-        favorites.add(new FavoriteEnt("MENU_FAVORITES_Google","Google","https://www.google.com/"));
-        favorites.add(new FavoriteEnt("MENU_FAVORITES_BBC","BBC","http://www.bbc.com/"));
-        favorites.add(new FavoriteEnt("MENU_FAVORITES_Wikipedia","Wikipedia","https://www.wikipedia.org/"));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_YouTube","YouTube","https://www.youtube.com/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_Google","Google","https://www.google.com/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_BBC","BBC","http://www.bbc.com/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_Wikipedia","Wikipedia","https://www.wikipedia.org/", false));
         return favorites;
     }
 

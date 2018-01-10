@@ -28,7 +28,7 @@ public class MainMenuHandler {
                 .setType(MenuItem.Type.SUBMENU)
                 .build());
 
-        FavoriteManager favoriteManager = new FavoriteManager(activity);
+        FavoriteManager favoriteManager = activity.favoriteManager;
 
         ListMenuAdapter favMenu = new ListMenuAdapter();
         favMenu.setCallbacks(MainMenuHandler.createMenuCallbacks(activity, mainMenu));
@@ -55,19 +55,20 @@ public class MainMenuHandler {
                 Log.i("Test", name);
 
                 if("MENU_HOME".equals(name)){
-                    activity.changeURL(activity.homeURL);
+                    activity.changeURL(activity.homeURL, false);
                 }
                 if("MENU_BACK".equals(name)){
                     int historySize = activity.urlHistory.size();
                     int newIndex = historySize - 2;
                     if(newIndex > 0 && newIndex < historySize){
                         String newURL = activity.urlHistory.get(newIndex);
-                        activity.changeURL(newURL);
+                        activity.changeURL(newURL, false);
                     }
                 }
                 if(name.startsWith("MENU_FAVORITES_")){
-                   FavoriteManager favoriteManager = new FavoriteManager(activity);
-                   activity.changeURL(favoriteManager.getFavoriteById(name).getUrl());
+                   FavoriteManager favoriteManager = activity.favoriteManager;
+                   FavoriteEnt favorite = favoriteManager.getFavoriteById(name);
+                   activity.changeURL(favorite.getUrl(), favorite.getDesktop());
                 }
             }
 

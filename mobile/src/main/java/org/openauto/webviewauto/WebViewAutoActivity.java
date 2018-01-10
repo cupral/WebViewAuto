@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 
 import com.google.android.apps.auto.sdk.CarActivity;
 
+import org.openauto.webviewauto.favorites.FavoriteManager;
 import org.openauto.webviewauto.fragments.BrowserFragment;
 
 import java.util.ArrayList;
@@ -33,9 +34,9 @@ public class WebViewAutoActivity extends CarActivity {
     public String currentURL = homeURL;
     public BrowserInputMode inputMode = BrowserInputMode.URL_INPUT_MODE;
     public String originalAgentString = "";
-    public String currentBrowserMode = "MOBILE";
 
     public List<String> urlHistory = new ArrayList<>();
+    public FavoriteManager favoriteManager;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -43,6 +44,7 @@ public class WebViewAutoActivity extends CarActivity {
         //android.os.Debug.waitForDebugger();
 
         ActivityAccessHelper.getInstance().activity = this;
+        favoriteManager = new FavoriteManager(this);
 
         setTheme(R.style.AppTheme_Car);
         super.onCreate(bundle);
@@ -193,14 +195,14 @@ public class WebViewAutoActivity extends CarActivity {
     }
 
     public void sendURLToCar(String enteredText){
-        changeURL(enteredText);
+        changeURL(enteredText, false);
     }
 
     public void keyboardInputCallback(String str){
         WebView wbb = (WebView)findViewById(R.id.webview_component);
         if(BrowserInputMode.URL_INPUT_MODE == inputMode){
             wbb.post(() -> {
-                changeURL(str);
+                changeURL(str, false);
                 hideKeyboard();
             });
         } else {
@@ -214,7 +216,10 @@ public class WebViewAutoActivity extends CarActivity {
         wbb.post(() -> wbb.evaluateJavascript("document.activeElement.value = '" + enteredText + "';", null));
     }
 
-    public void changeURL(String url){
+    /**
+     * TODO: Refactor - instead of using string and boolean, a Site object should be used which has a url and desktop property
+     */
+    public void changeURL(String url, boolean desktopMode){
         //set the new url into the url input bar
         WebView html5_menu = (WebView)findViewById(R.id.html5_menu);
         //TODO: find a way to get rid of timeout
@@ -225,12 +230,10 @@ public class WebViewAutoActivity extends CarActivity {
         //Add URLs for Desktop mode here
         List<String> desktopModeURLs = new ArrayList<>();
         //desktopModeURLs.add("");
-        if(desktopModeURLs.contains(url) && !currentBrowserMode.equals("DESKTOP")){
+        if(desktopMode){
             setDesktopMode();
-            currentBrowserMode = "DESKTOP";
         } else {
             setMobileMode();
-            currentBrowserMode = "MOBILE";
         }
         wbb.loadUrl(url);
         //remember the current url
@@ -284,7 +287,7 @@ public class WebViewAutoActivity extends CarActivity {
         menu.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
                 //change URL when page has been loaded
-                changeURL(currentURL);
+                changeURL(currentURL, false);
             }
         });
 

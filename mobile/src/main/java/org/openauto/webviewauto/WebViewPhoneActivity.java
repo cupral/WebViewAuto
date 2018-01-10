@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,21 +19,22 @@ import org.openauto.webviewauto.utils.UIUtils;
  */
 public class WebViewPhoneActivity extends AppCompatActivity {
 
+    FavoriteManager favoriteManager = new FavoriteManager(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_main);
 
-        FavoriteManager favoriteManager = new FavoriteManager(this);
         reloadFavList();
 
         Button add_favorite_button = findViewById(R.id.add_favorite_button);
         add_favorite_button.setOnClickListener(v -> {
             EditText new_fav_title = findViewById(R.id.new_fav_title);
             EditText new_fav_url = findViewById(R.id.new_fav_url);
-
+            CheckBox new_fav_desktop_mode = findViewById(R.id.new_fav_desktop_mode);
             if(!new_fav_title.getText().toString().isEmpty() && !new_fav_url.getText().toString().isEmpty()){
-                FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(), new_fav_title.getText().toString(), new_fav_url.getText().toString());
+                FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(), new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
                 favoriteManager.addFavorite(newFav);
                 favoriteManager.persistFavorites();
                 reloadFavList();
@@ -69,7 +71,6 @@ public class WebViewPhoneActivity extends AppCompatActivity {
         LinearLayout favorite_container = findViewById(R.id.favorite_container);
         favorite_container.removeAllViews();
 
-        FavoriteManager favoriteManager = new FavoriteManager(this);
         for(FavoriteEnt e : favoriteManager.favorites){
 
             View favItemView = inflater.inflate(R.layout.activity_phone_main_fav_item, null);
@@ -77,6 +78,8 @@ public class WebViewPhoneActivity extends AppCompatActivity {
             fav_item_title_tv.setText(e.getTitle());
             TextView fav_item_url_tv = favItemView.findViewById(R.id.fav_item_url_tv);
             fav_item_url_tv.setText(e.getUrl());
+            CheckBox fav_item_url_cb = favItemView.findViewById(R.id.fav_item_url_cb);
+            fav_item_url_cb.setChecked(e.getDesktop());
             Button fav_item_removebtn = favItemView.findViewById(R.id.fav_item_removebtn);
             fav_item_removebtn.setTag(e);
             fav_item_removebtn.setOnClickListener(v -> {

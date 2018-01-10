@@ -92,6 +92,13 @@
             android:inputType="textPersonName"
             android:hint="URL" />
 
+        <CheckBox
+            android:id="@+id/new_fav_desktop_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Desktop mode" />
+
         <Button
             android:id="@+id/add_favorite_button"
             android:layout_width="match_parent"

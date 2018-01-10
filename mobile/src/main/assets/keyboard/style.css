@@ -164,6 +164,11 @@ html {
     border-right: 6px solid #1a1a1a;
 }
 
+.backspaceKey {
+    font-family: 'Material';
+    font-size: 150%;
+}
+
 .enterKey {
     font-family: 'Material';
     background: #4283f4;

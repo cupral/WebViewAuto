@@ -91,7 +91,7 @@ function createClickHandlers() {
                     swapLetterCase();
                     return;
                 }
-                if (text === '⌫') {
+                if (text === '\uf06e') {
                     $(".input-row input").val(oldVal.slice(0, -1));
                     return;
                 }

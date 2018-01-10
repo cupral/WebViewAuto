@@ -145,13 +145,19 @@ public class WebViewAutoActivity extends CarActivity {
         this.inputMode = newInputMode;
         WebView webview = (WebView)findViewById(R.id.webview_component);
         WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        WebView menu = (WebView)findViewById(R.id.html5_menu);
         keyboard.post(() -> {
             if(webview.getVisibility() == View.GONE){
                 webview.setVisibility(View.VISIBLE);
+                menu.setVisibility(View.VISIBLE);
                 keyboard.setVisibility(View.GONE);
             } else {
                 webview.setVisibility(View.GONE);
+                menu.setVisibility(View.GONE);
                 keyboard.setVisibility(View.VISIBLE);
+                if(newInputMode == BrowserInputMode.CONTENT_INPUT_MODE){
+                    keyboard.loadUrl("javascript:clearInput();");
+                }
             }
         });
     }
@@ -159,8 +165,10 @@ public class WebViewAutoActivity extends CarActivity {
     public void showKeyboard() {
         WebView webview = (WebView)findViewById(R.id.webview_component);
         WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        WebView menu = (WebView)findViewById(R.id.html5_menu);
         keyboard.post(() -> {
             webview.setVisibility(View.GONE);
+            menu.setVisibility(View.GONE);
             keyboard.setVisibility(View.VISIBLE);
         });
     }
@@ -168,8 +176,10 @@ public class WebViewAutoActivity extends CarActivity {
     public void hideKeyboard() {
         WebView webview = (WebView)findViewById(R.id.webview_component);
         WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+        WebView menu = (WebView)findViewById(R.id.html5_menu);
         keyboard.post(() -> {
             webview.setVisibility(View.VISIBLE);
+            menu.setVisibility(View.VISIBLE);
             keyboard.setVisibility(View.GONE);
         });
     }
@@ -186,8 +196,12 @@ public class WebViewAutoActivity extends CarActivity {
     }
 
     public void keyboardInputCallback(String str){
+        WebView wbb = (WebView)findViewById(R.id.webview_component);
         if(BrowserInputMode.URL_INPUT_MODE == inputMode){
-            changeURL(str);
+            wbb.post(() -> {
+                changeURL(str);
+                hideKeyboard();
+            });
         } else {
             sendStringToCar(str);
             hideKeyboard();
@@ -203,7 +217,7 @@ public class WebViewAutoActivity extends CarActivity {
         //set the new url into the url input bar
         WebView html5_menu = (WebView)findViewById(R.id.html5_menu);
         //TODO: find a way to get rid of timeout
-        html5_menu.post(() -> html5_menu.loadUrl("javascript:setTimeout(function(){setURL('"+url+"')},200);"));
+        html5_menu.post(() -> html5_menu.loadUrl("javascript:setTimeout(function(){setURL('"+url+"')},400);"));
 
         //load the new url
         WebView wbb = (WebView)findViewById(R.id.webview_component);

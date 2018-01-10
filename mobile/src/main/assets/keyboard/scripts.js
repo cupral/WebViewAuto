@@ -41,6 +41,10 @@ function swapLetterCase() {
     });
 }
 
+function clearInput(){
+    $(".input-row input").val("");
+}
+
 function submitInput(str){
     Android.submitInput(str);
 }

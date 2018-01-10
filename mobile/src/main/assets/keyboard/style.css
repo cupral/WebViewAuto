@@ -37,6 +37,7 @@ html {
     border: 3px solid #1a1a1a;
     cursor: pointer;
     padding: 4px;
+    font-size: 150%;
 }
 
 .key span {

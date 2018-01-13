@@ -16,6 +16,7 @@ import com.google.android.apps.auto.sdk.CarActivity;
 
 import org.openauto.webviewauto.favorites.FavoriteManager;
 import org.openauto.webviewauto.fragments.BrowserFragment;
+import org.openauto.webviewauto.webview.WebChromeClientExtended;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -272,7 +273,7 @@ public class WebViewAutoActivity extends CarActivity {
         WebSettings wbset=wbb.getSettings();
         wbset.setJavaScriptEnabled(true);
         wbset.setDomStorageEnabled(true);
-        wbb.setWebChromeClient(new WebChromeClient());
+        wbb.setWebChromeClient(new WebChromeClientExtended(this));
         wbb.setWebViewClient(new WebViewClient());
         CookieManager.getInstance().setAcceptThirdPartyCookies(wbb,true);
 

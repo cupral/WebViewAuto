@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,11 +13,13 @@
         android:layout_height="0px"/>
 
     <TextView
+        android:background="#8d60a6cc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="This activity is just for the Android Auto app configuration, since entering long terms on the AA display can be distracting..." />
 
     <LinearLayout
+        android:background="#8d60a6cc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -28,18 +31,21 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Type URL here" />
+            android:hint="Set URL on car" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
+            android:fontFamily="@font/materialdesigniconswebfont"
+            app:font="@font/materialdesigniconswebfont"
             android:id="@+id/url_to_car_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SET URL" />
+            android:text="&#xF48A;" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:background="#8d60a6cc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -51,28 +57,24 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Type text here" />
+            android:hint="Send text to car" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
+            android:fontFamily="@font/materialdesigniconswebfont"
+            app:font="@font/materialdesigniconswebfont"
             android:id="@+id/text_to_car_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Send text" />
+            android:text="&#xF48A;" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:background="#8df9b815"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="New favorite:" />
 
         <EditText
             android:id="@+id/new_fav_title"
@@ -80,8 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Title" />
+            android:hint="Title for new favorite"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/new_fav_url"
@@ -89,22 +91,32 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="URL" />
+            android:hint="URL for new favorite"
+            android:inputType="textPersonName" />
 
-        <CheckBox
-            android:id="@+id/new_fav_desktop_mode"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Desktop mode" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/add_favorite_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add" />
+            <CheckBox
+                android:id="@+id/new_fav_desktop_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Desktop mode" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/add_favorite_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="&#xF4CE;"
+                android:fontFamily="@font/materialdesigniconswebfont"
+                app:font="@font/materialdesigniconswebfont" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -2,7 +2,7 @@
     font-family: 'Material';
     font-style: normal;
     font-weight: 400;
-    src: url("../common/fonts/materialdesignicons.ttf") format('truetype');
+    src: url("../common/fonts/materialdesignicons-webfont.ttf") format('truetype');
 }
 
 html, body {

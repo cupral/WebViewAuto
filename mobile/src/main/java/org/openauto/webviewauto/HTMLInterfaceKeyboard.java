@@ -18,4 +18,11 @@ public class HTMLInterfaceKeyboard {
         }
     }
 
+    @JavascriptInterface
+    public void hideKeyboard(String str) {
+        if (context instanceof WebViewAutoActivity){
+            ((WebViewAutoActivity)context).hideKeyboard();
+        }
+    }
+
 }

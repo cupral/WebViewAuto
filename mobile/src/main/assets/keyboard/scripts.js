@@ -65,7 +65,7 @@ function createClickHandlers() {
                     return;
                 }
                 if (text === 'Esc') {
-                    console.log("Close Keyboard");
+                    Android.hideKeyboard("1");
                     return;
                 }
                 if (text === 'Del') {

@@ -228,9 +228,6 @@ public class WebViewAutoActivity extends CarActivity {
 
         //load the new url
         WebView wbb = (WebView)findViewById(R.id.webview_component);
-        //Add URLs for Desktop mode here
-        List<String> desktopModeURLs = new ArrayList<>();
-        //desktopModeURLs.add("");
         if(desktopMode){
             setDesktopMode();
         } else {

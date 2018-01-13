@@ -19,12 +19,14 @@ import org.openauto.webviewauto.utils.UIUtils;
  */
 public class WebViewPhoneActivity extends AppCompatActivity {
 
-    FavoriteManager favoriteManager = new FavoriteManager(this);
+    FavoriteManager favoriteManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_main);
+
+        favoriteManager = new FavoriteManager(this);
 
         reloadFavList();
 

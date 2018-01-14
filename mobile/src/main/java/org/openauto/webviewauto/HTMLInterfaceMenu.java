@@ -39,5 +39,31 @@ public class HTMLInterfaceMenu {
         }
     }
 
+    @JavascriptInterface
+    public void showFavorites(String str) {
+        if (context instanceof WebViewAutoActivity){
+            ((WebViewAutoActivity)context).showFavorites();
+        }
+    }
+
+    @JavascriptInterface
+    public void addToFavorites(String str) {
+        if (context instanceof WebViewAutoActivity){
+            //((WebViewAutoActivity)context).addToFavorites();
+        }
+    }
+
+    @JavascriptInterface
+    public void goBack(String str) {
+        if (context instanceof WebViewAutoActivity){
+            WebViewAutoActivity activity = (WebViewAutoActivity)context;
+            int historySize = activity.urlHistory.size();
+            int newIndex = historySize - 2;
+            if(newIndex > 0 && newIndex < historySize){
+                String newURL = activity.urlHistory.get(newIndex);
+                activity.changeURL(newURL, false);
+            }
+        }
+    }
 
 }

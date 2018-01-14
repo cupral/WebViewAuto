@@ -12,11 +12,13 @@
     <body>
 
         <div class="input-row" style="display: flex; height: 100%;">
-            <div class="menuItem menuItem-left" onclick="openMenu();">&#xF35C;</div>
-            <div class="menuItem menuItem-mid" onclick="toggleKeyboard();">&#xF30C;</div>
-            <div class="menuItemUrl" style="width: 100%;">
+            <div class="menuItem menuItem-left" onclick="goBack();">&#xF04D;</div>
+            <div class="menuItem menuItem-mid" onclick="showFavorites();">&#xF69C;</div>
+            <div class="menuItem menuItem-mid" onclick="addToFavorites();">&#xF4D0;</div>
+            <div class="menuItem-mid" style="width: 100%;">
                 <input class="urlInput" onclick="toggleURLKeyboard();"/>
             </div>
+            <div class="menuItem menuItem-mid" onclick="toggleKeyboard();">&#xF30C;</div>
             <div class="menuItem menuItem-right" onclick="submitForm();">&#xF311;</div>
         </div>
 

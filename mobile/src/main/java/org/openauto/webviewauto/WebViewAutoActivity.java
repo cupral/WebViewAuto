@@ -31,7 +31,7 @@ public class WebViewAutoActivity extends CarActivity {
     private String mCurrentFragmentTag;
 
     public boolean browserInitialized = false;
-    public String homeURL = "https://duckduckgo.com";
+    public String homeURL = "file:///android_asset/favorites/favorites.html";
     public String currentURL = homeURL;
     public BrowserInputMode inputMode = BrowserInputMode.URL_INPUT_MODE;
     public String originalAgentString = "";
@@ -195,6 +195,13 @@ public class WebViewAutoActivity extends CarActivity {
         });
     }
 
+    public void showFavorites(){
+        WebView webview = (WebView)findViewById(R.id.webview_component);
+        webview.post(() -> {
+            changeURL("file:///android_asset/favorites/favorites.html",false);
+        });
+    }
+
     public void sendURLToCar(String enteredText){
         changeURL(enteredText, false);
     }
@@ -272,6 +279,7 @@ public class WebViewAutoActivity extends CarActivity {
         wbset.setDomStorageEnabled(true);
         wbb.setWebChromeClient(new WebChromeClientExtended(this));
         wbb.setWebViewClient(new WebViewClient());
+        wbb.addJavascriptInterface(new HTMLInterfaceContent(this), "Android");
         CookieManager.getInstance().setAcceptThirdPartyCookies(wbb,true);
 
         //init menu

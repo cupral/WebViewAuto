@@ -10,6 +10,15 @@ function toggleURLKeyboard() {
 function submitForm() {
     Android.submitForm("");
 }
+function goBack() {
+    Android.goBack("");
+}
+function showFavorites() {
+    Android.showFavorites("");
+}
+function addToFavorites() {
+    Android.addToFavorites("");
+}
 function setURL(url){
     $(".urlInput").val(url);
 }

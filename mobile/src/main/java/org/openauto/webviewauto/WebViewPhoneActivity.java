@@ -36,7 +36,8 @@ public class WebViewPhoneActivity extends AppCompatActivity {
             EditText new_fav_url = findViewById(R.id.new_fav_url);
             CheckBox new_fav_desktop_mode = findViewById(R.id.new_fav_desktop_mode);
             if(!new_fav_title.getText().toString().isEmpty() && !new_fav_url.getText().toString().isEmpty()){
-                FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(), new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
+                FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(),
+                        new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
                 favoriteManager.addFavorite(newFav);
                 favoriteManager.persistFavorites();
                 reloadFavList();

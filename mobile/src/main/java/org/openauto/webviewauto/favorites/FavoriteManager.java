@@ -21,12 +21,16 @@ public class FavoriteManager {
         readFavorites();
     }
 
-    private static List<FavoriteEnt> getDefaultFavorites(){
+    private List<FavoriteEnt> getDefaultFavorites(){
         List<FavoriteEnt> favorites = new ArrayList<>();
-        favorites.add(new FavoriteEnt("MENU_FAVORITES_YouTube","YouTube","https://www.youtube.com/", false));
-        favorites.add(new FavoriteEnt("MENU_FAVORITES_Google","Google","https://www.google.com/", false));
-        favorites.add(new FavoriteEnt("MENU_FAVORITES_BBC","BBC","http://www.bbc.com/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_DuckDuckGo","DuckDuckGo","https://duckduckgo.com/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_Google","Google","https://www.google.com/",false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_YouTube","YouTube","https://www.youtube.com/",false));
         favorites.add(new FavoriteEnt("MENU_FAVORITES_Wikipedia","Wikipedia","https://www.wikipedia.org/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_BBC","BBC","http://www.bbc.com", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_Tagesschau","Tagesschau","https://www.tagesschau.de/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_RT","RT","https://www.rt.com/", false));
+        favorites.add(new FavoriteEnt("MENU_FAVORITES_CNN","CNN","https://edition.cnn.com/", false));
         return favorites;
     }
 
@@ -65,6 +69,11 @@ public class FavoriteManager {
             List<FavoriteEnt> favsFromFile = gson.fromJson(favoritesJson, favListType);
             favorites = favsFromFile;
         }
+    }
+
+    public void resetFavorites(){
+        favorites = getDefaultFavorites();
+        persistFavorites();
     }
 
 }

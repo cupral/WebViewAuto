@@ -44,3 +44,14 @@ a {
     width: 100%;
     box-sizing: border-box;
 }
+.footer {
+    width: 100%;
+}
+.footer-item-r{
+    display: inline;
+    float: right;
+}
+.footer-item-l{
+    text-decoration: underline;
+    display: inline;
+}

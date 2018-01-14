@@ -17,9 +17,10 @@ a {
 .favorite-item {
     color: black;
     background: white;
-    border: 2px solid #4283f4;
+    border: 1px solid #4283f4;
     width: 20%;
     display: inline-block;
+    box-sizing: border-box;
     padding: 1%;
     margin: 10px;
 }
@@ -40,4 +41,6 @@ a {
     background: white;
     color: black;
     padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
 }

@@ -4,12 +4,20 @@
     font-weight: 400;
     src: url("../common/fonts/OpenSansCondensed-Light.ttf") format('truetype');
 }
-body {
+html, body {
     font-family: 'OpenSansCondensed-Light';
+    background: black;
+    color: white;
+}
+
+a {
+    color: white;
 }
 
 .favorite-item {
-    border: 1px solid #4283f4;
+    color: black;
+    background: white;
+    border: 2px solid #4283f4;
     width: 20%;
     display: inline-block;
     padding: 1%;
@@ -24,4 +32,12 @@ body {
     background: #4283f4;
     color: white;
     cursor: pointer;
+}
+
+.warning-box {
+    font-weight: bold;
+    border: 4px solid red;
+    background: white;
+    color: black;
+    padding: 5px;
 }

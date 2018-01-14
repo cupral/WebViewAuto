@@ -6,7 +6,7 @@
 }
 html, body {
     font-family: 'OpenSansCondensed-Light';
-    background: black;
+    background: #0D0F14;
     color: white;
 }
 
@@ -16,8 +16,8 @@ a {
 
 .favorite-item {
     color: black;
-    background: white;
-    border: 1px solid #4283f4;
+    background: rgb(210, 210, 211);
+    border-radius: 5px;
     width: 20%;
     display: inline-block;
     box-sizing: border-box;

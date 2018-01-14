@@ -23,7 +23,7 @@ function parseFavorites(favoritesJson){
     var favObjects = JSON.parse(favoritesJson);
     $(".favorite-container").empty();
     $.each(favObjects, function(i,e){
-        var line1 = "<div class='favorite-item' data-url='"+e.url+"' data-desktop='false' onclick='openFavorite(this);'>";
+        var line1 = "<div class='favorite-item' data-url='"+e.url+"' data-desktop='"+e.desktop+"' onclick='openFavorite(this);'>";
         var line2 = "<div>"+e.title+"</div>";
         var line3 = "<img class='favorite-img' src='"+getFaviconUrl(e.url)+"'/>";
         var line4 = "</div>";

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import org.openauto.webviewauto.favorites.FavoriteEnt;
+
 public class HTMLInterfaceMenu {
 
     private Context context;
@@ -48,9 +50,10 @@ public class HTMLInterfaceMenu {
     }
 
     @JavascriptInterface
-    public void addToFavorites(String str) {
+    public void addToFavorites(String title, String url) {
         if (context instanceof WebViewAutoActivity){
-            //((WebViewAutoActivity)context).addToFavorites();
+            ((WebViewAutoActivity)context).favoriteManager.addFavorite(new FavoriteEnt("MENU_FAVORITES_" + title, title, url, false));
+            ((WebViewAutoActivity)context).favoriteManager.persistFavorites();
         }
     }
 

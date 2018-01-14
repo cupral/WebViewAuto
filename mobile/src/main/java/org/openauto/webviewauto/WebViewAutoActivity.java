@@ -279,7 +279,10 @@ public class WebViewAutoActivity extends CarActivity {
         contentWebView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
                 urlHistory.add(url);
-                menu.post(() -> menu.loadUrl("javascript:setURL('"+url+"');"));
+                menu.post(() -> {
+                    menu.loadUrl("javascript:setURL('"+url+"');");
+                    menu.loadUrl("javascript:setTitle('"+view.getTitle()+"');");
+                });
             }
         });
 

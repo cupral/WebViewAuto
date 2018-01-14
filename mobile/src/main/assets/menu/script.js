@@ -1,3 +1,5 @@
+var title;
+
 function openMenu() {
     Android.openMenu("");
 }
@@ -17,8 +19,11 @@ function showFavorites() {
     Android.showFavorites("");
 }
 function addToFavorites() {
-    Android.addToFavorites("");
+    Android.addToFavorites(title, $(".urlInput").val());
 }
 function setURL(url){
     $(".urlInput").val(url);
+}
+function setTitle(loadedTitle){
+    title = loadedTitle;
 }

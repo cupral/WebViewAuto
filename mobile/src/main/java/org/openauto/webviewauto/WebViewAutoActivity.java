@@ -272,18 +272,26 @@ public class WebViewAutoActivity extends CarActivity {
             return;
         }
 
-        //load web view
-        WebView wbb = (WebView)findViewById(R.id.webview_component);
-        WebSettings wbset=wbb.getSettings();
+        //load web views
+        WebView contentWebView = (WebView)findViewById(R.id.webview_component);
+        final WebView menu = (WebView)findViewById(R.id.html5_menu);
+        final WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
+
+        //content webview
+        WebSettings wbset=contentWebView.getSettings();
         wbset.setJavaScriptEnabled(true);
         wbset.setDomStorageEnabled(true);
-        wbb.setWebChromeClient(new WebChromeClientExtended(this));
-        wbb.setWebViewClient(new WebViewClient());
-        wbb.addJavascriptInterface(new HTMLInterfaceContent(this), "Android");
-        CookieManager.getInstance().setAcceptThirdPartyCookies(wbb,true);
+        contentWebView.setWebChromeClient(new WebChromeClientExtended(this));
+        contentWebView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                menu.post(() -> menu.loadUrl("javascript:setURL('"+url+"');"));
+            }
+        });
+
+        contentWebView.addJavascriptInterface(new HTMLInterfaceContent(this), "Android");
+        CookieManager.getInstance().setAcceptThirdPartyCookies(contentWebView,true);
 
         //init menu
-        final WebView menu = (WebView)findViewById(R.id.html5_menu);
         WebSettings menusettings= menu.getSettings();
         menusettings.setJavaScriptEnabled(true);
         menusettings.setAllowContentAccess(true);
@@ -301,7 +309,6 @@ public class WebViewAutoActivity extends CarActivity {
         menu.loadUrl("file:///android_asset/menu/menu.html");
 
         //init keyboard
-        final WebView keyboard = (WebView)findViewById(R.id.html5_keyboard);
         WebSettings keyboardSettings= keyboard.getSettings();
         keyboardSettings.setJavaScriptEnabled(true);
         keyboardSettings.setAllowContentAccess(true);

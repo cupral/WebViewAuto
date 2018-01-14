@@ -1,5 +1,11 @@
 # Android Auto compatible browser app
 
+## Screenshots
+
+![alt text](https://raw.githubusercontent.com/nerone-github/WebViewAuto/master/images/browser1.png)
+![alt text](https://raw.githubusercontent.com/nerone-github/WebViewAuto/master/images/browser2.png)
+![alt text](https://raw.githubusercontent.com/nerone-github/WebViewAuto/master/images/browser3.png)
+
 ## Warning:
 
 DO NOT USE WHILE DRIVING! KEEP YOUR EYES ON THE ROAD! BAD THINGS CAN HAPPEN!
@@ -27,10 +33,3 @@ I am not responsible for any damage caused by this application.
 - Connect phone to AA Head Unit and select the OEM tab
 
 ![alt text](https://raw.githubusercontent.com/nerone-github/LocalSpeedcam/master/images/devsettings.png)
-
-## Screenshots
-
-![alt text](https://raw.githubusercontent.com/nerone-github/WebViewAuto/master/images/browser1.png)
-![alt text](https://raw.githubusercontent.com/nerone-github/WebViewAuto/master/images/browser2.png)
-![alt text](https://raw.githubusercontent.com/nerone-github/WebViewAuto/master/images/browser3.png)
-![alt text](https://raw.githubusercontent.com/nerone-github/WebViewAuto/master/images/browser4.png)

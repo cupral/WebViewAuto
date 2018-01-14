@@ -68,9 +68,6 @@ public class WebViewAutoActivity extends CarActivity {
         }
         switchToFragment(initialFragmentTag);
 
-        //Build main menu
-        MainMenuHandler.buildMainMenu(this);
-
         //Status bar controller
         getCarUiController().getMenuController().hideMenuButton();
         getCarUiController().getStatusBarController().hideMicButton();
@@ -243,10 +240,7 @@ public class WebViewAutoActivity extends CarActivity {
         wbb.loadUrl(url);
         //remember the current url
         currentURL = url;
-        //add url to history if last item is not already in the history
-        if(!urlHistory.isEmpty() && !urlHistory.get(urlHistory.size()-1).equals(url)){
-            urlHistory.add(url);
-        }
+
     }
 
     private void setDesktopMode(){
@@ -284,6 +278,7 @@ public class WebViewAutoActivity extends CarActivity {
         contentWebView.setWebChromeClient(new WebChromeClientExtended(this));
         contentWebView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
+                urlHistory.add(url);
                 menu.post(() -> menu.loadUrl("javascript:setURL('"+url+"');"));
             }
         });

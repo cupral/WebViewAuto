@@ -62,15 +62,7 @@ public class HTMLInterfaceMenu {
         if (context instanceof WebViewAutoActivity){
             WebViewAutoActivity activity = (WebViewAutoActivity)context;
             WebView webView = (WebView)activity.findViewById(R.id.webview_component);
-            webView.post(() -> {
-                int historySize = activity.urlHistory.size();
-                int newIndex = historySize - 1;
-                if(newIndex > 0){
-                    String newURL = activity.urlHistory.get(newIndex);
-                    activity.changeURL(newURL, false);
-                    activity.urlHistory.remove(activity.urlHistory.size()-1);
-                }
-            });
+            webView.post(webView::goBack);
         }
     }
 

@@ -36,7 +36,6 @@ public class WebViewAutoActivity extends CarActivity {
     public BrowserInputMode inputMode = BrowserInputMode.URL_INPUT_MODE;
     public String originalAgentString = "";
 
-    public List<String> urlHistory = new ArrayList<>();
     public FavoriteManager favoriteManager;
 
     @Override
@@ -278,7 +277,6 @@ public class WebViewAutoActivity extends CarActivity {
         contentWebView.setWebChromeClient(new WebChromeClientExtended(this));
         contentWebView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
-                urlHistory.add(url);
                 menu.post(() -> {
                     menu.loadUrl("javascript:setURL('"+url+"');");
                     menu.loadUrl("javascript:setTitle('"+view.getTitle()+"');");

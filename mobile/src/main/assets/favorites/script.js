@@ -33,6 +33,37 @@ function parseFavorites(favoritesJson){
     window.scrollTo(0, 0);
 }
 
+var settings = {};
+settings.disclaimerHidden = 0;
+
+function saveSettings(){
+    localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+function restoreSettings(){
+    var savedSettings = JSON.parse(localStorage.getItem("settings"));
+    if(savedSettings === null){
+        saveSettings();
+    }
+    settings = JSON.parse(localStorage.getItem("settings"));
+}
+
+function hideDisclaimer(){
+    $(".warning-box").hide();
+    $(".favorite-footer").show();
+    $(".favorite-container").show();
+    settings.disclaimerHidden = new Date().getTime();
+    saveSettings();
+}
+function showDisclaimer(){
+    if(new Date().getTime() - settings.disclaimerHidden > 10000){
+        $(".warning-box").show();
+        $(".favorite-footer").hide();
+        $(".favorite-container").hide();
+    }
+}
+
 $(document).ready(function() {
     loadFavorites();
+    showDisclaimer();
 });

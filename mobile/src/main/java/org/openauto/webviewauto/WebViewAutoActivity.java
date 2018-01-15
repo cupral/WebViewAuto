@@ -274,6 +274,7 @@ public class WebViewAutoActivity extends CarActivity {
         WebSettings wbset=contentWebView.getSettings();
         wbset.setJavaScriptEnabled(true);
         wbset.setDomStorageEnabled(true);
+        wbset.setDatabaseEnabled(true);
         contentWebView.setWebChromeClient(new WebChromeClientExtended(this));
         contentWebView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {

@@ -9,6 +9,12 @@ function loadFavorites(){
 function resetFavorites(){
     Android.resetFavorites("");
 }
+function hideMenu(){
+    Android.hideMenu("");
+}
+function showMenu(){
+    Android.showMenu("");
+}
 
 function getFaviconUrl(url){
     var lastChar = url.slice(-1);
@@ -49,6 +55,7 @@ function restoreSettings(){
 }
 
 function hideDisclaimer(){
+    showMenu();
     $(".warning-box").hide();
     $(".favorite-footer").show();
     $(".favorite-container").show();
@@ -56,7 +63,9 @@ function hideDisclaimer(){
     saveSettings();
 }
 function showDisclaimer(){
-    if(new Date().getTime() - settings.disclaimerHidden > 10000){
+    var lastAcceptTime = new Date().getTime() - settings.disclaimerHidden;
+    if(lastAcceptTime > 300000){
+        hideMenu();
         $(".warning-box").show();
         $(".favorite-footer").hide();
         $(".favorite-container").hide();
@@ -64,6 +73,7 @@ function showDisclaimer(){
 }
 
 $(document).ready(function() {
-    loadFavorites();
+    restoreSettings();
     showDisclaimer();
+    loadFavorites();
 });

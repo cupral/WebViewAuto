@@ -1,6 +1,7 @@
 package org.openauto.webviewauto;
 
 import android.content.Context;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
@@ -14,6 +15,29 @@ public class HTMLInterfaceContent {
 
     HTMLInterfaceContent(Context context) {
         this.context = context;
+    }
+
+
+    @JavascriptInterface
+    public void showMenu(String s) {
+        if (context instanceof WebViewAutoActivity){
+            WebViewAutoActivity activity = (WebViewAutoActivity)context;
+            WebView wv = (WebView)((WebViewAutoActivity)context).findViewById(R.id.webview_component);
+            wv.post(() -> {
+                activity.findViewById(R.id.html5_menu).setVisibility(View.VISIBLE);
+            });
+        }
+    }
+
+    @JavascriptInterface
+    public void hideMenu(String s) {
+        if (context instanceof WebViewAutoActivity){
+            WebViewAutoActivity activity = (WebViewAutoActivity)context;
+            WebView wv = (WebView)((WebViewAutoActivity)context).findViewById(R.id.webview_component);
+            wv.post(() -> {
+                activity.findViewById(R.id.html5_menu).setVisibility(View.GONE);
+            });
+        }
     }
 
     @JavascriptInterface

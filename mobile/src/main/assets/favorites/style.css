@@ -66,6 +66,7 @@ a {
     position: fixed;
 }
 .warning-box-text {
+    margin-top: 15px;
     position: absolute;
     font-size: 4vw;
 }

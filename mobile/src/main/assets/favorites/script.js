@@ -57,7 +57,7 @@ function restoreSettings(){
 function hideDisclaimer(){
     showMenu();
     $(".warning-box").hide();
-    $(".favorite-footer").show();
+    $(".footer").show();
     $(".favorite-container").show();
     settings.disclaimerHidden = new Date().getTime();
     saveSettings();
@@ -67,7 +67,7 @@ function showDisclaimer(){
     if(lastAcceptTime > 300000){
         hideMenu();
         $(".warning-box").show();
-        $(".favorite-footer").hide();
+        $(".footer").hide();
         $(".favorite-container").hide();
     }
 }

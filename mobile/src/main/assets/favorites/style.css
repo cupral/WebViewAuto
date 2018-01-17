@@ -44,16 +44,20 @@ a {
 }
 
 .footer {
-    margin-left: 5px;
-    margin-right: 5px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #0D0F14;
 }
 
 .footer-item-l {
     display: inline;
     text-decoration: underline;
+    margin-left: 20px;
 }
 .footer-item-r {
     float: right;
+    margin-right: 20px;
 }
 
 .warning-box {

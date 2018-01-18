@@ -66,4 +66,22 @@ public class HTMLInterfaceMenu {
         }
     }
 
+    @JavascriptInterface
+    public void switchRenderMode(String s) {
+        if (context instanceof WebViewAutoActivity){
+            WebViewAutoActivity activity = (WebViewAutoActivity)context;
+            WebView wv = (WebView)((WebViewAutoActivity)context).findViewById(R.id.webview_component);
+            wv.post(() -> {
+                if(activity.renderMode == WebViewAutoActivity.BrowserRenderMode.DESKTOP_MODE){
+                    activity.renderMode = WebViewAutoActivity.BrowserRenderMode.MOBILE_MODE;
+                    activity.setMobileMode();
+                } else {
+                    activity.renderMode = WebViewAutoActivity.BrowserRenderMode.DESKTOP_MODE;
+                    activity.setDesktopMode();
+                }
+                wv.post(wv::reload);
+            });
+        }
+    }
+
 }

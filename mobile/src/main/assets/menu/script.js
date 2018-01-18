@@ -21,6 +21,9 @@ function showFavorites() {
 function addToFavorites() {
     Android.addToFavorites(title, $(".urlInput").val());
 }
+function switchRenderMode(){
+    Android.switchRenderMode("");
+}
 function setURL(url){
     $(".urlInput").val(url);
 }

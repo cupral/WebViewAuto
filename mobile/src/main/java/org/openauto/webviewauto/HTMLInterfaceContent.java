@@ -34,8 +34,6 @@ public class HTMLInterfaceContent {
         }
     }
 
-
-
     @JavascriptInterface
     public void showMenu(String s) {
         if (context instanceof WebViewAutoActivity){
@@ -61,9 +59,15 @@ public class HTMLInterfaceContent {
     @JavascriptInterface
     public void openFavorite(String url, String desktopMode) {
         if (context instanceof WebViewAutoActivity){
-            WebView wv = (WebView)((WebViewAutoActivity)context).findViewById(R.id.webview_component);
+            WebViewAutoActivity activity = (WebViewAutoActivity)context;
+            WebView wv = (WebView)activity.findViewById(R.id.webview_component);
             wv.post(() -> {
-                ((WebViewAutoActivity)context).changeURL(url, Boolean.parseBoolean(desktopMode));
+                if(Boolean.parseBoolean(desktopMode)){
+                    activity.renderMode = WebViewAutoActivity.BrowserRenderMode.DESKTOP_MODE;
+                } else {
+                    activity.renderMode = WebViewAutoActivity.BrowserRenderMode.MOBILE_MODE;
+                }
+                ((WebViewAutoActivity)context).changeURL(url);
             });
         }
     }

@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 
 import com.google.android.apps.auto.sdk.CarActivity;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.openauto.webviewauto.favorites.FavoriteManager;
 import org.openauto.webviewauto.fragments.BrowserFragment;
 import org.openauto.webviewauto.webview.WebChromeClientExtended;
@@ -217,7 +218,11 @@ public class WebViewAutoActivity extends CarActivity {
 
     public void sendStringToCar(String enteredText){
         WebView wbb = (WebView)findViewById(R.id.webview_component);
-        wbb.post(() -> wbb.evaluateJavascript("document.activeElement.value = '" + enteredText + "';", null));
+        wbb.post(() -> {
+            String script = "if(document.activeElement.isContentEditable){document.activeElement.innerText = \"$1\";} else {document.activeElement.value = \"$1\";}";
+            script = script.replace("$1", StringEscapeUtils.escapeEcmaScript(enteredText));
+            wbb.evaluateJavascript(script, null);
+        });
     }
 
     /**

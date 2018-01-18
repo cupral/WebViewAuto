@@ -2,7 +2,9 @@ package org.openauto.webviewauto;
 
 import android.content.Context;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 
 import com.google.gson.Gson;
@@ -16,6 +18,22 @@ public class HTMLInterfaceContent {
     HTMLInterfaceContent(Context context) {
         this.context = context;
     }
+
+    @JavascriptInterface
+    public void clearLocalStorage(String s) {
+        if (context instanceof WebViewAutoActivity){
+            WebStorage.getInstance().deleteAllData();
+        }
+    }
+
+    @JavascriptInterface
+    public void clearCookies(String s) {
+        if (context instanceof WebViewAutoActivity){
+            CookieManager.getInstance().removeAllCookies(null);
+            CookieManager.getInstance().flush();
+        }
+    }
+
 
 
     @JavascriptInterface

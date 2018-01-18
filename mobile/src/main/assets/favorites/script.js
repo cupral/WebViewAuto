@@ -15,6 +15,12 @@ function hideMenu(){
 function showMenu(){
     Android.showMenu("");
 }
+function clearLocalStorage(){
+    Android.clearLocalStorage("");
+}
+function clearCookies(){
+    Android.clearCookies("");
+}
 
 function getFaviconUrl(url){
     var lastChar = url.slice(-1);

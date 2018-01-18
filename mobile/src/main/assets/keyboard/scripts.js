@@ -73,7 +73,6 @@ function createClickHandlers() {
                     return;
                 }
                 if (text === '\uf133') {
-                    console.log("Submit: " + $(".input-row input").val());
                     submitInput($(".input-row input").val());
                     return;
                 }

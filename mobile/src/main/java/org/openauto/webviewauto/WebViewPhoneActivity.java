@@ -19,14 +19,14 @@ import org.openauto.webviewauto.utils.UIUtils;
  */
 public class WebViewPhoneActivity extends AppCompatActivity {
 
-    FavoriteManager favoriteManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_main);
 
-        favoriteManager = new FavoriteManager(this);
+        if(ActivityAccessHelper.getInstance().getFavoriteManager() == null){
+            ActivityAccessHelper.getInstance().setFavoriteManager(new FavoriteManager(this));
+        }
 
         reloadFavList();
 
@@ -38,8 +38,8 @@ public class WebViewPhoneActivity extends AppCompatActivity {
             if(!new_fav_title.getText().toString().isEmpty() && !new_fav_url.getText().toString().isEmpty()){
                 FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(),
                         new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
-                favoriteManager.addFavorite(newFav);
-                favoriteManager.persistFavorites();
+                ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(newFav);
+                ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();
                 reloadFavList();
             } else {
                 UIUtils.showSnackbar(this, "Title or URL is empty", 1000);
@@ -51,7 +51,7 @@ public class WebViewPhoneActivity extends AppCompatActivity {
         EditText url_to_car_text = findViewById(R.id.url_to_car_text);
         Button url_to_car_button = findViewById(R.id.url_to_car_button);
         url_to_car_button.setOnClickListener(v -> {
-            WebViewAutoActivity act = ActivityAccessHelper.getInstance().activity;
+            WebViewAutoActivity act = ActivityAccessHelper.getInstance().getActivity();
             if(act != null){
                 act.sendURLToCar(url_to_car_text.getText().toString());
             }
@@ -60,7 +60,7 @@ public class WebViewPhoneActivity extends AppCompatActivity {
         EditText text_to_car_text = findViewById(R.id.text_to_car_text);
         Button text_to_car_button = findViewById(R.id.text_to_car_button);
         text_to_car_button.setOnClickListener(v -> {
-            WebViewAutoActivity act = ActivityAccessHelper.getInstance().activity;
+            WebViewAutoActivity act = ActivityAccessHelper.getInstance().getActivity();
             if(act != null){
                 act.sendStringToCar(text_to_car_text.getText().toString());
             }
@@ -74,7 +74,7 @@ public class WebViewPhoneActivity extends AppCompatActivity {
         LinearLayout favorite_container = findViewById(R.id.favorite_container);
         favorite_container.removeAllViews();
 
-        for(FavoriteEnt e : favoriteManager.favorites){
+        for(FavoriteEnt e : ActivityAccessHelper.getInstance().getFavoriteManager().favorites){
 
             View favItemView = inflater.inflate(R.layout.activity_phone_main_fav_item, null);
             TextView fav_item_title_tv = favItemView.findViewById(R.id.fav_item_title_tv);
@@ -86,8 +86,8 @@ public class WebViewPhoneActivity extends AppCompatActivity {
             Button fav_item_removebtn = favItemView.findViewById(R.id.fav_item_removebtn);
             fav_item_removebtn.setTag(e);
             fav_item_removebtn.setOnClickListener(v -> {
-                favoriteManager.removeFavorite((FavoriteEnt)v.getTag());
-                favoriteManager.persistFavorites();
+                ActivityAccessHelper.getInstance().getFavoriteManager().removeFavorite((FavoriteEnt)v.getTag());
+                ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();
                 reloadFavList();
             });
             favorite_container.addView(favItemView);

@@ -79,7 +79,7 @@ public class HTMLInterfaceContent {
             WebView wv = (WebView)activity.findViewById(R.id.webview_component);
             wv.post(() -> {
                 Gson g = new Gson();
-                String json = StringEscapeUtils.escapeEcmaScript(g.toJson(activity.favoriteManager.favorites));
+                String json = StringEscapeUtils.escapeEcmaScript(g.toJson(ActivityAccessHelper.getInstance().getFavoriteManager().favorites));
                 wv.evaluateJavascript("javascript:parseFavorites(\"" + json + "\");", null);
             });
         }
@@ -91,7 +91,7 @@ public class HTMLInterfaceContent {
             WebViewAutoActivity activity = ((WebViewAutoActivity)context);
             WebView wv = (WebView)activity.findViewById(R.id.webview_component);
             wv.post(() -> {
-                activity.favoriteManager.resetFavorites();
+                ActivityAccessHelper.getInstance().getFavoriteManager().resetFavorites();
             });
         }
     }

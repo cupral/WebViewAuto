@@ -52,8 +52,8 @@ public class HTMLInterfaceMenu {
     @JavascriptInterface
     public void addToFavorites(String title, String url) {
         if (context instanceof WebViewAutoActivity){
-            ((WebViewAutoActivity)context).favoriteManager.addFavorite(new FavoriteEnt("MENU_FAVORITES_" + title, title, url, false));
-            ((WebViewAutoActivity)context).favoriteManager.persistFavorites();
+            ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(new FavoriteEnt("MENU_FAVORITES_" + title, title, url, false));
+            ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();
         }
     }
 

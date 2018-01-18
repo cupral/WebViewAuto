@@ -19,9 +19,6 @@ import org.openauto.webviewauto.favorites.FavoriteManager;
 import org.openauto.webviewauto.fragments.BrowserFragment;
 import org.openauto.webviewauto.webview.WebChromeClientExtended;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WebViewAutoActivity extends CarActivity {
 
     public enum BrowserInputMode {
@@ -42,15 +39,16 @@ public class WebViewAutoActivity extends CarActivity {
     public BrowserRenderMode renderMode = BrowserRenderMode.MOBILE_MODE;
     public String originalAgentString = "";
 
-    public FavoriteManager favoriteManager;
-
     @Override
     public void onCreate(Bundle bundle) {
 
         //android.os.Debug.waitForDebugger();
 
-        ActivityAccessHelper.getInstance().activity = this;
-        favoriteManager = new FavoriteManager(this);
+        ActivityAccessHelper.getInstance().setActivity(this);
+
+        if(ActivityAccessHelper.getInstance().getFavoriteManager() == null){
+            ActivityAccessHelper.getInstance().setFavoriteManager(new FavoriteManager(this));
+        }
 
         setTheme(R.style.AppTheme_Car);
         super.onCreate(bundle);

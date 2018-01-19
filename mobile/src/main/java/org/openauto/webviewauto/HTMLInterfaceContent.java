@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import com.google.gson.Gson;
 
 import org.apache.commons.text.StringEscapeUtils;
+import org.openauto.webviewauto.favorites.FavoriteManager;
 
 public class HTMLInterfaceContent {
 
@@ -96,5 +97,17 @@ public class HTMLInterfaceContent {
         }
     }
 
+    @JavascriptInterface
+    public void removeFavorite(String str) {
+        if (context instanceof WebViewAutoActivity){
+            WebViewAutoActivity activity = ((WebViewAutoActivity)context);
+            WebView wv = (WebView)activity.findViewById(R.id.webview_component);
+            wv.post(() -> {
+                FavoriteManager mgr = ActivityAccessHelper.getInstance().getFavoriteManager();
+                mgr.removeFavorite(mgr.getFavoriteById(str));
+                wv.reload();
+            });
+        }
+    }
 
 }

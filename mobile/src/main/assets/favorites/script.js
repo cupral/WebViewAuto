@@ -9,6 +9,9 @@ function loadFavorites(){
 function resetFavorites(){
     Android.resetFavorites("");
 }
+function removeFavorite(fav){
+    Android.removeFavorite(fav);
+}
 function hideMenu(){
     Android.hideMenu("");
 }
@@ -36,7 +39,7 @@ function parseFavorites(favoritesJson){
     $(".favorite-container").empty();
     $.each(favObjects, function(i,e){
         var line1 = "<div class='favorite-item' data-url='"+e.url+"' data-desktop='"+e.desktop+"' onclick='openFavorite(this);'>";
-        var line2 = "<div>"+e.title+"</div>";
+        var line2 = "<div style='text-align: left;'><span>"+e.title+"</span><span onclick=\"removeFavorite('"+e.id+"');\" class='favorite-remove-icon'></span></div>";
         var line3 = "<img class='favorite-img' src='"+getFaviconUrl(e.url)+"'/>";
         var line4 = "</div>";
         var html = line1+line2+line3+line4;

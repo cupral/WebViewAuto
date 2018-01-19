@@ -25,22 +25,13 @@ function clearCookies(){
     Android.clearCookies("");
 }
 
-function getFaviconUrl(url){
-    var lastChar = url.slice(-1);
-    if(lastChar === "/"){
-        return url + "favicon.ico";
-    } else {
-        return url + "/favicon.ico";
-    }
-}
-
 function parseFavorites(favoritesJson){
     var favObjects = JSON.parse(favoritesJson);
     $(".favorite-container").empty();
     $.each(favObjects, function(i,e){
         var line1 = "<div class='favorite-item'>";
         var line2 = "<div style='text-align: left;'><span>"+e.title+"</span><span onclick=\"removeFavorite('"+e.id+"');\" class='favorite-remove-icon'></span></div>";
-        var line3 = "<img class='favorite-img' data-url='"+e.url+"' data-desktop='"+e.desktop+"' onclick='openFavorite(this);' src='"+getFaviconUrl(e.url)+"'/>";
+        var line3 = "<img class='favorite-img' data-id='"+e.id+"' data-url='"+e.url+"' data-desktop='"+e.desktop+"' onclick='openFavorite(this);' src='"+e.favicon+"'/>";
         var line4 = "</div>";
         var html = line1+line2+line3+line4;
         $(".favorite-container").append(html);

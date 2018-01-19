@@ -222,7 +222,9 @@ public class WebViewAutoActivity extends CarActivity {
     public void sendStringToCar(String enteredText){
         WebView wbb = (WebView)findViewById(R.id.webview_component);
         wbb.post(() -> {
-            String script = "if(document.activeElement.isContentEditable){document.activeElement.innerText = \"$1\";} else {document.activeElement.value = \"$1\";}";
+            String script = "var wwaevent = new Event('change'); " +
+                    "if(document.activeElement.isContentEditable){document.activeElement.innerText = \"$1\";}" +
+                    "else {document.activeElement.value = \"$1\";} document.activeElement.dispatchEvent(wwaevent);";
             script = script.replace("$1", StringEscapeUtils.escapeEcmaScript(enteredText));
             wbb.evaluateJavascript(script, null);
         });

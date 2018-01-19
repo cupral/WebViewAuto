@@ -93,6 +93,7 @@ public class HTMLInterfaceContent {
             WebView wv = (WebView)activity.findViewById(R.id.webview_component);
             wv.post(() -> {
                 ActivityAccessHelper.getInstance().getFavoriteManager().resetFavorites();
+                wv.reload();
             });
         }
     }

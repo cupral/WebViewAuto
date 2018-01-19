@@ -43,11 +43,8 @@ a {
     float: right;
 }
 .favorite-item:hover {
-    background: #4283f4;
-    color: white;
-    cursor: pointer;
-}
 
+}
 .footer {
     position: fixed;
     bottom: 0;

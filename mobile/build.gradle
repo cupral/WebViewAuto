@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+def static getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yy.MM.dd-HHmm')
+    return formattedDate
+}
+
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
@@ -9,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 2
-        versionName "1.1"
+        versionName getDate();
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -6,6 +6,9 @@ function openFavorite(e){
 function loadFavorites(){
     Android.loadFavorites("");
 }
+function loadVersion(){
+    Android.loadVersion("");
+}
 function resetFavorites(){
     Android.resetFavorites("");
 }
@@ -30,7 +33,7 @@ function parseFavorites(favoritesJson){
     $(".favorite-container").empty();
     $.each(favObjects, function(i,e){
         var line1 = "<div class='favorite-item'>";
-        var line2 = "<div style='text-align: left;'><span>"+e.title+"</span><span onclick=\"removeFavorite('"+e.id+"');\" class='favorite-remove-icon'></span></div>";
+        var line2 = "<div style='text-align: left;'><span>"+truncate(e.title,10)+"</span><span onclick=\"removeFavorite('"+e.id+"');\" class='favorite-remove-icon'></span></div>";
         var line3 = "<img class='favorite-img' data-id='"+e.id+"' data-url='"+e.url+"' data-desktop='"+e.desktop+"' onclick='openFavorite(this);' src='"+e.favicon+"'/>";
         var line4 = "</div>";
         var html = line1+line2+line3+line4;
@@ -44,6 +47,10 @@ settings.disclaimerHidden = 0;
 
 function saveSettings(){
     localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+function setVersion(version){
+    $(".footer-item-version").text(version);
 }
 
 function restoreSettings(){
@@ -72,8 +79,18 @@ function showDisclaimer(){
     }
 }
 
+function truncate(str, len){
+    if(str.length <= len){
+        return str;
+    } else {
+        var trimmedString = str.substring(0, len);
+        return trimmedString + "…";
+    }
+}
+
 $(document).ready(function() {
     restoreSettings();
     showDisclaimer();
     loadFavorites();
+    loadVersion();
 });

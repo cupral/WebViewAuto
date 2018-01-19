@@ -74,6 +74,20 @@ public class HTMLInterfaceContent {
     }
 
     @JavascriptInterface
+    public void loadVersion(String str) {
+        String versionName = BuildConfig.VERSION_NAME;
+        if (context instanceof WebViewAutoActivity){
+            WebViewAutoActivity activity = ((WebViewAutoActivity)context);
+            WebView wv = (WebView)activity.findViewById(R.id.webview_component);
+            wv.post(() -> {
+                Gson g = new Gson();
+                String json = StringEscapeUtils.escapeEcmaScript(g.toJson(FavoriteManager.getInstance().favorites));
+                wv.evaluateJavascript("javascript:setVersion(\"" + "v" + versionName + "\");", null);
+            });
+        }
+    }
+
+    @JavascriptInterface
     public void loadFavorites(String str) {
         if (context instanceof WebViewAutoActivity){
             WebViewAutoActivity activity = ((WebViewAutoActivity)context);

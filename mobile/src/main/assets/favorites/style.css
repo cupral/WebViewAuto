@@ -13,13 +13,9 @@
 
 html, body {
     font-family: 'OpenSansCondensed-Light';
-    background: #0D0F14;
-    color: white;
+    background: white;
+    color: black;
     margin: 0;
-}
-
-a {
-    color: white;
 }
 
 .favorite-item {
@@ -49,7 +45,6 @@ a {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: #0D0F14;
 }
 
 .footer-item-l {

@@ -1,11 +1,13 @@
 package org.openauto.webviewauto.utils;
 
+import android.util.Log;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class IconUtil {
@@ -13,7 +15,7 @@ public class IconUtil {
     public static String getIconURL(String url) {
         try {
             Document doc = Jsoup.parse(new URL(url), 5000);
-            Map<String, String> jsoupSelectors = new HashMap<>();
+            Map<String, String> jsoupSelectors = new LinkedHashMap<>();
             jsoupSelectors.put("link[rel*='apple-touch-icon']", "href");
             jsoupSelectors.put("meta[property='og:image']", "content");
             jsoupSelectors.put("meta[content$='png']", "content");
@@ -32,7 +34,10 @@ public class IconUtil {
             }
             //Add domain if missing
             if(imageURL != null && !imageURL.startsWith("http")){
-                if(url.endsWith("/") && imageURL.startsWith("/")){
+                if(imageURL.startsWith("//")){
+                    //CDN
+                    imageURL = "https://" + imageURL;
+                } else if(url.endsWith("/") && imageURL.startsWith("/")){
                     imageURL = url + imageURL.substring(1);
                 } else if(url.endsWith("/") || imageURL.startsWith("/")){
                     imageURL = url + imageURL;
@@ -41,6 +46,7 @@ public class IconUtil {
                 }
             }
 
+            Log.i("IconUtil Icon found: ", imageURL);
             return imageURL;
         }catch(Exception e){
             return "";

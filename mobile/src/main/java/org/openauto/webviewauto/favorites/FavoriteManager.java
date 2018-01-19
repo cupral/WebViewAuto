@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.openauto.webviewauto.utils.IOHandler;
+import org.openauto.webviewauto.utils.NetworkReaderTask;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -31,6 +32,12 @@ public class FavoriteManager {
         favorites.add(new FavoriteEnt("MENU_FAVORITES_Tagesschau","Tagesschau","https://www.tagesschau.de/", false));
         favorites.add(new FavoriteEnt("MENU_FAVORITES_RT","RT","https://www.rt.com/", false));
         favorites.add(new FavoriteEnt("MENU_FAVORITES_CNN","CNN","https://edition.cnn.com/", false));
+
+        for(FavoriteEnt e : favorites){
+            NetworkReaderTask nt = new NetworkReaderTask(e);
+            nt.execute();
+        }
+
         return favorites;
     }
 

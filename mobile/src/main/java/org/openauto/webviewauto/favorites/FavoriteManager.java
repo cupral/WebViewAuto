@@ -1,10 +1,9 @@
 package org.openauto.webviewauto.favorites;
 
-import android.content.Context;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.openauto.webviewauto.WebViewContext;
 import org.openauto.webviewauto.utils.IOHandler;
 import org.openauto.webviewauto.utils.NetworkReaderTask;
 
@@ -14,12 +13,19 @@ import java.util.List;
 
 public class FavoriteManager {
 
-    private Context context;
+    private static volatile FavoriteManager instance = null;
     public List<FavoriteEnt> favorites;
 
-    public FavoriteManager(Context context){
-        this.context = context;
-        readFavorites();
+    public static FavoriteManager getInstance() {
+        if (instance == null) {
+            synchronized(FavoriteManager.class) {
+                if (instance == null) {
+                    instance = new FavoriteManager();
+                    instance.readFavorites();
+                }
+            }
+        }
+        return instance;
     }
 
     private List<FavoriteEnt> getDefaultFavorites(){
@@ -34,7 +40,7 @@ public class FavoriteManager {
         favorites.add(new FavoriteEnt("MENU_FAVORITES_CNN","CNN","https://edition.cnn.com/", false));
 
         for(FavoriteEnt e : favorites){
-            NetworkReaderTask nt = new NetworkReaderTask(context, e);
+            NetworkReaderTask nt = new NetworkReaderTask(WebViewContext.getAppContext(), e, true);
             nt.execute();
         }
 
@@ -61,20 +67,19 @@ public class FavoriteManager {
     public void persistFavorites(){
         Gson gson = new Gson();
         String json = gson.toJson(favorites);
-        IOHandler ioHandler = new IOHandler(context);
+        IOHandler ioHandler = new IOHandler();
         ioHandler.saveObject(json, "favorites.json");
     }
 
     private void readFavorites(){
-        IOHandler ioHandler = new IOHandler(context);
+        IOHandler ioHandler = new IOHandler();
         String favoritesJson = (String)ioHandler.readObject("favorites.json");
         if(favoritesJson == null){
             favorites = getDefaultFavorites();
         } else {
             Gson gson = new Gson();
             Type favListType = new TypeToken<List<FavoriteEnt>>() {}.getType();
-            List<FavoriteEnt> favsFromFile = gson.fromJson(favoritesJson, favListType);
-            favorites = favsFromFile;
+            favorites = gson.fromJson(favoritesJson, favListType);
         }
     }
 
@@ -82,5 +87,6 @@ public class FavoriteManager {
         favorites = getDefaultFavorites();
         persistFavorites();
     }
+
 
 }

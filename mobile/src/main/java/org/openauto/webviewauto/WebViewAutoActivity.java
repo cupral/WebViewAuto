@@ -46,10 +46,6 @@ public class WebViewAutoActivity extends CarActivity {
 
         ActivityAccessHelper.getInstance().setActivity(this);
 
-        if(ActivityAccessHelper.getInstance().getFavoriteManager() == null){
-            ActivityAccessHelper.getInstance().setFavoriteManager(new FavoriteManager(this));
-        }
-
         setTheme(R.style.AppTheme_Car);
         super.onCreate(bundle);
         setContentView(R.layout.activity_car_main);

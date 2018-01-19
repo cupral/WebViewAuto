@@ -12,12 +12,15 @@ import org.openauto.webviewauto.favorites.FavoriteEnt;
 
 public class NetworkReaderTask extends AsyncTask<String, String, String> {
 
+	private boolean reload;
 	private FavoriteEnt f;
 	private Context context;
 
-	public NetworkReaderTask(Context context, FavoriteEnt f){
+	public NetworkReaderTask(Context context, FavoriteEnt f, boolean reload){
 		this.context = context;
 		this.f=f;
+		this.reload = reload;
+
 	}
 
 	@Override
@@ -27,9 +30,9 @@ public class NetworkReaderTask extends AsyncTask<String, String, String> {
 		if(context instanceof WebViewAutoActivity){
 			WebViewAutoActivity activity = (WebViewAutoActivity) context;
 			WebView webview = (WebView)activity.findViewById(R.id.webview_component);
-			webview.post(() -> {
-    			webview.reload();
-            });
+			if(reload) {
+				webview.post(webview::reload);
+			}
 		}
 	}
 
@@ -38,9 +41,7 @@ public class NetworkReaderTask extends AsyncTask<String, String, String> {
 		try {
 			String iconUrl = IconUtil.getIconURL(f.getUrl());
 			Bitmap bitmap = IconUtil.getBitmapFromURL(iconUrl);
-			String base64 = IconUtil.getBase64Image(bitmap);
-			//Log.e("WebViewAuto Network",base64);
-			return base64;
+			return IconUtil.getBase64Image(bitmap);
 		}catch(Exception e){
 			Log.e("WebViewAuto Network",Log.getStackTraceString(e));
 		}

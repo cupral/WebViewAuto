@@ -25,10 +25,6 @@ public class WebViewPhoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_main);
 
-        if(ActivityAccessHelper.getInstance().getFavoriteManager() == null){
-            ActivityAccessHelper.getInstance().setFavoriteManager(new FavoriteManager(this));
-        }
-
         reloadFavList();
 
         Button add_favorite_button = findViewById(R.id.add_favorite_button);
@@ -41,11 +37,11 @@ public class WebViewPhoneActivity extends AppCompatActivity {
                         new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
 
                 //Load icon
-                NetworkReaderTask nt = new NetworkReaderTask(this, newFav);
+                NetworkReaderTask nt = new NetworkReaderTask(this, newFav, false);
                 nt.execute();
 
-                ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(newFav);
-                ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();
+                FavoriteManager.getInstance().addFavorite(newFav);
+                FavoriteManager.getInstance().persistFavorites();
                 reloadFavList();
             } else {
                 UIUtils.showSnackbar(this, "Title or URL is empty", 1000);
@@ -80,7 +76,7 @@ public class WebViewPhoneActivity extends AppCompatActivity {
         LinearLayout favorite_container = findViewById(R.id.favorite_container);
         favorite_container.removeAllViews();
 
-        for(FavoriteEnt e : ActivityAccessHelper.getInstance().getFavoriteManager().favorites){
+        for(FavoriteEnt e : FavoriteManager.getInstance().favorites){
 
             View favItemView = inflater.inflate(R.layout.activity_phone_main_fav_item, null);
             TextView fav_item_title_tv = favItemView.findViewById(R.id.fav_item_title_tv);
@@ -92,8 +88,8 @@ public class WebViewPhoneActivity extends AppCompatActivity {
             Button fav_item_removebtn = favItemView.findViewById(R.id.fav_item_removebtn);
             fav_item_removebtn.setTag(e);
             fav_item_removebtn.setOnClickListener(v -> {
-                ActivityAccessHelper.getInstance().getFavoriteManager().removeFavorite((FavoriteEnt)v.getTag());
-                ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();
+                FavoriteManager.getInstance().removeFavorite((FavoriteEnt)v.getTag());
+                FavoriteManager.getInstance().persistFavorites();
                 reloadFavList();
             });
             favorite_container.addView(favItemView);

@@ -41,7 +41,7 @@ public class WebViewPhoneActivity extends AppCompatActivity {
                         new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
 
                 //Load icon
-                NetworkReaderTask nt = new NetworkReaderTask(newFav);
+                NetworkReaderTask nt = new NetworkReaderTask(this, newFav);
                 nt.execute();
 
                 ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(newFav);

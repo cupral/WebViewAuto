@@ -34,7 +34,7 @@ public class FavoriteManager {
         favorites.add(new FavoriteEnt("MENU_FAVORITES_CNN","CNN","https://edition.cnn.com/", false));
 
         for(FavoriteEnt e : favorites){
-            NetworkReaderTask nt = new NetworkReaderTask(e);
+            NetworkReaderTask nt = new NetworkReaderTask(context, e);
             nt.execute();
         }
 

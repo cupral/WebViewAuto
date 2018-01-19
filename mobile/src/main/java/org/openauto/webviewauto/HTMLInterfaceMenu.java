@@ -63,7 +63,7 @@ public class HTMLInterfaceMenu {
             ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(newFavorite);
 
             //Load icon
-            NetworkReaderTask nt = new NetworkReaderTask(newFavorite);
+            NetworkReaderTask nt = new NetworkReaderTask(context, newFavorite);
             nt.execute();
 
             ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();

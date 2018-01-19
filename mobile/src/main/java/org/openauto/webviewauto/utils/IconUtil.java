@@ -93,12 +93,7 @@ public class IconUtil {
             //Add domain if missing
             if(imageURL != null && !imageURL.startsWith("http")){
                 if(imageURL.startsWith("//")){
-                    //CDN
                     imageURL = "https://" + imageURL;
-                } else if(url.endsWith("/") && imageURL.startsWith("/")){
-                    imageURL = getHost(url) + imageURL.substring(1);
-                } else if(url.endsWith("/") || imageURL.startsWith("/")){
-                    imageURL = getHost(url) + imageURL;
                 } else {
                     imageURL = getHost(url) + "/" + imageURL;
                 }

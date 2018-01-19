@@ -29,7 +29,7 @@ public class NetworkReaderTask extends AsyncTask<String, String, String> {
 		}catch(Exception e){
 			Log.e("WebViewAuto Network",Log.getStackTraceString(e));
 		}
-		return null;
+		return "nofavimg.png";
 	}
 
 }

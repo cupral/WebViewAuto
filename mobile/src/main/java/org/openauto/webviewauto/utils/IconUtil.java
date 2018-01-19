@@ -14,11 +14,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class IconUtil {
+
+    public static String getHost(String url) throws URISyntaxException {
+        URI uri = new URI(url);
+        return uri.getScheme() + "://" + uri.getHost();
+    }
 
     public static String getBase64Image(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -89,11 +96,11 @@ public class IconUtil {
                     //CDN
                     imageURL = "https://" + imageURL;
                 } else if(url.endsWith("/") && imageURL.startsWith("/")){
-                    imageURL = url + imageURL.substring(1);
+                    imageURL = getHost(url) + imageURL.substring(1);
                 } else if(url.endsWith("/") || imageURL.startsWith("/")){
-                    imageURL = url + imageURL;
+                    imageURL = getHost(url) + imageURL;
                 } else {
-                    imageURL = url + "/" + imageURL;
+                    imageURL = getHost(url) + "/" + imageURL;
                 }
             }
             if(imageURL == null){
@@ -104,7 +111,7 @@ public class IconUtil {
             return imageURL;
         }catch(Exception e){
             Log.i("Exception", e.getMessage());
-            return "";
+            return "nofavimg.png";
         }
     }
 

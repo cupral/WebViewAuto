@@ -45,10 +45,14 @@ public class IconUtil {
                     imageURL = url + "/" + imageURL;
                 }
             }
-
-            Log.i("IconUtil Icon found", imageURL);
+            if(imageURL == null){
+                Log.i("No Icon found for", url);
+            } else {
+                Log.i("IconUtil Icon found", imageURL);
+            }
             return imageURL;
         }catch(Exception e){
+            Log.i("Exception", e.getMessage());
             return "";
         }
     }

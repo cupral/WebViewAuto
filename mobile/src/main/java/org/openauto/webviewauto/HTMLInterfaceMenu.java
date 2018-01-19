@@ -5,6 +5,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import org.openauto.webviewauto.favorites.FavoriteEnt;
+import org.openauto.webviewauto.utils.NetworkReaderTask;
 
 public class HTMLInterfaceMenu {
 
@@ -52,7 +53,14 @@ public class HTMLInterfaceMenu {
     @JavascriptInterface
     public void addToFavorites(String title, String url) {
         if (context instanceof WebViewAutoActivity){
-            ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(new FavoriteEnt("MENU_FAVORITES_" + title, title, url, false));
+
+            FavoriteEnt newFavorite = new FavoriteEnt("MENU_FAVORITES_" + title, title, url, false);
+            ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(newFavorite);
+
+            //Load icon
+            NetworkReaderTask nt = new NetworkReaderTask(newFavorite);
+            nt.execute();
+
             ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();
         }
     }

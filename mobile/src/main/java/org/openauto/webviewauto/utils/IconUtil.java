@@ -46,7 +46,7 @@ public class IconUtil {
                 }
             }
 
-            Log.i("IconUtil Icon found: ", imageURL);
+            Log.i("IconUtil Icon found", imageURL);
             return imageURL;
         }catch(Exception e){
             return "";

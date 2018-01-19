@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.openauto.webviewauto.favorites.FavoriteEnt;
 import org.openauto.webviewauto.favorites.FavoriteManager;
+import org.openauto.webviewauto.utils.NetworkReaderTask;
 import org.openauto.webviewauto.utils.UIUtils;
 
 /**
@@ -38,6 +39,11 @@ public class WebViewPhoneActivity extends AppCompatActivity {
             if(!new_fav_title.getText().toString().isEmpty() && !new_fav_url.getText().toString().isEmpty()){
                 FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(),
                         new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
+
+                //Load icon
+                NetworkReaderTask nt = new NetworkReaderTask(newFav);
+                nt.execute();
+
                 ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(newFav);
                 ActivityAccessHelper.getInstance().getFavoriteManager().persistFavorites();
                 reloadFavList();

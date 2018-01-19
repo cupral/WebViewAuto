@@ -54,6 +54,11 @@ public class HTMLInterfaceMenu {
     public void addToFavorites(String title, String url) {
         if (context instanceof WebViewAutoActivity){
 
+            //File favorites are forbidden
+            if(url.startsWith("file:") && url.endsWith("favorites.html")){
+                return;
+            }
+
             FavoriteEnt newFavorite = new FavoriteEnt("MENU_FAVORITES_" + title, title, url, false);
             ActivityAccessHelper.getInstance().getFavoriteManager().addFavorite(newFavorite);
 

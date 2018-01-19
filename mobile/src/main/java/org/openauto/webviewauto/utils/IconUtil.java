@@ -70,15 +70,16 @@ public class IconUtil {
             jsoupSelectors.put("meta[property='og:image']", "content");
             jsoupSelectors.put("meta[content$='png']", "content");
             jsoupSelectors.put("link[rel='icon']", "href");
+            jsoupSelectors.put("link[rel='shortcut icon']", "href");
             String imageURL = null;
             for (Map.Entry<String, String> entry : jsoupSelectors.entrySet()) {
                 for (Element e : doc.select(entry.getKey())) {
                     imageURL = e.attr(entry.getValue());
-                    if (imageURL != null) {
+                    if (isValidImageUrl(imageURL)) {
                         break;
                     }
                 }
-                if (imageURL != null) {
+                if (isValidImageUrl(imageURL)) {
                     break;
                 }
             }
@@ -105,6 +106,17 @@ public class IconUtil {
             Log.i("Exception", e.getMessage());
             return "";
         }
+    }
+
+    private static boolean isValidImageUrl(String url){
+        if(url == null){
+            return false;
+        }
+        //we can't parse svg yet
+        if(url.endsWith(".svg")){
+            return false;
+        }
+        return true;
     }
 
 

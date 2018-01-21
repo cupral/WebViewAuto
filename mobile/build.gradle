@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 def static getDate() {
     def date = new Date()
@@ -40,7 +41,6 @@ dependencies {
     compile 'org.apache.commons:commons-text:1.2'
     compile 'org.jsoup:jsoup:1.11.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
 }
 repositories {
     mavenCentral()

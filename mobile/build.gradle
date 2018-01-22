@@ -1,6 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+/**
+ * Use the number of seconds/10 since Jan 21 2018 as the versionCode.
+ * This lets us upload a new build at most every 10 seconds for the
+ * next 6xx years.
+ */
+def vcode = (int)(((new Date().getTime()/1000) - 1516549683) / 10)
+
 def static getDate() {
     def date = new Date()
     def formattedDate = date.format('yy.MM.dd-HHmm')
@@ -14,7 +21,7 @@ android {
         applicationId "org.openauto.webviewauto"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 2
+        versionCode vcode
         versionName getDate();
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

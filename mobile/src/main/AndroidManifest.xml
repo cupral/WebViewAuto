@@ -2,6 +2,7 @@
     package="org.openauto.webviewauto" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application android:name="org.openauto.webviewauto.WebViewContext"
         android:allowBackup="true"

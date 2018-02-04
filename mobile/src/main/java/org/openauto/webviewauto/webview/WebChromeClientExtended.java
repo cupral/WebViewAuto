@@ -2,6 +2,7 @@ package org.openauto.webviewauto.webview;
 
 
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -22,6 +23,11 @@ public class WebChromeClientExtended extends WebChromeClient {
         this.menuWebView = (WebView)activity.findViewById(R.id.html5_menu);
         this.contentWebView = (WebView)activity.findViewById(R.id.webview_component);
         this.customViewContainer = (FrameLayout) activity.findViewById(R.id.customview_component);
+    }
+
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+        // callback.invoke(String origin, boolean allow, boolean remember);
+        callback.invoke(origin, true, false);
     }
 
     @Override

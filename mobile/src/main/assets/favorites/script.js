@@ -61,24 +61,6 @@ function restoreSettings(){
     settings = JSON.parse(localStorage.getItem("settings"));
 }
 
-function hideDisclaimer(){
-    showMenu();
-    $(".warning-box").hide();
-    $(".footer").show();
-    $(".favorite-container").show();
-    settings.disclaimerHidden = new Date().getTime();
-    saveSettings();
-}
-function showDisclaimer(){
-    var lastAcceptTime = new Date().getTime() - settings.disclaimerHidden;
-    if(lastAcceptTime > 300000){
-        hideMenu();
-        $(".warning-box").show();
-        $(".footer").hide();
-        $(".favorite-container").hide();
-    }
-}
-
 function truncate(str, len){
     if(str.length <= len){
         return str;
@@ -90,7 +72,6 @@ function truncate(str, len){
 
 $(document).ready(function() {
     restoreSettings();
-    showDisclaimer();
     loadFavorites();
     loadVersion();
 });

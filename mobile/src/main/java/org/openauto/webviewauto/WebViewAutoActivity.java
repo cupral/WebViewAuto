@@ -45,7 +45,7 @@ public class WebViewAutoActivity extends CarActivity {
 
         setTheme(R.style.AppTheme_Car);
         super.onCreate(bundle);
-        setContentView(R.layout.fragment_browser);
+        setContentView(R.layout.auto_activity);
 
         this.webview = (WebView)findViewById(R.id.webview_component);
         this.keyboard = (WebView)findViewById(R.id.html5_keyboard);

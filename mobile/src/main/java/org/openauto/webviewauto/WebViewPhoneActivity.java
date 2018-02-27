@@ -27,17 +27,16 @@ public class WebViewPhoneActivity extends AppCompatActivity {
 
         reloadFavList();
 
-        Button add_favorite_button = findViewById(R.id.add_favorite_button);
+        final Button add_favorite_button = findViewById(R.id.add_favorite_button);
         add_favorite_button.setOnClickListener(v -> {
-            EditText new_fav_title = findViewById(R.id.new_fav_title);
-            EditText new_fav_url = findViewById(R.id.new_fav_url);
-            CheckBox new_fav_desktop_mode = findViewById(R.id.new_fav_desktop_mode);
+            final EditText new_fav_title = findViewById(R.id.new_fav_title);
+            final EditText new_fav_url = findViewById(R.id.new_fav_url);
+            final CheckBox new_fav_desktop_mode = findViewById(R.id.new_fav_desktop_mode);
             if(!new_fav_title.getText().toString().isEmpty() && !new_fav_url.getText().toString().isEmpty()){
-                FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(),
-                        new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
+                final FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(), new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
 
                 //Load icon
-                NetworkReaderTask nt = new NetworkReaderTask(this, newFav, false);
+                final NetworkReaderTask nt = new NetworkReaderTask(this, newFav, false);
                 nt.execute();
 
                 FavoriteManager.getInstance().addFavorite(newFav);
@@ -50,22 +49,16 @@ public class WebViewPhoneActivity extends AppCompatActivity {
         });
 
 
-        EditText url_to_car_text = findViewById(R.id.url_to_car_text);
-        Button url_to_car_button = findViewById(R.id.url_to_car_button);
+        final EditText url_to_car_text = findViewById(R.id.url_to_car_text);
+        final Button url_to_car_button = findViewById(R.id.url_to_car_button);
         url_to_car_button.setOnClickListener(v -> {
-            WebViewAutoActivity act = ActivityAccessHelper.getInstance().getActivity();
-            if(act != null){
-                act.sendURLToCar(url_to_car_text.getText().toString());
-            }
+            WebViewAutoActivity.sendURLToCar(url_to_car_text.getText().toString());
         });
 
-        EditText text_to_car_text = findViewById(R.id.text_to_car_text);
-        Button text_to_car_button = findViewById(R.id.text_to_car_button);
+        final EditText text_to_car_text = findViewById(R.id.text_to_car_text);
+        final Button text_to_car_button = findViewById(R.id.text_to_car_button);
         text_to_car_button.setOnClickListener(v -> {
-            WebViewAutoActivity act = ActivityAccessHelper.getInstance().getActivity();
-            if(act != null){
-                act.sendStringToCar(text_to_car_text.getText().toString());
-            }
+            WebViewAutoActivity.sendStringToCar(text_to_car_text.getText().toString());
         });
 
     }

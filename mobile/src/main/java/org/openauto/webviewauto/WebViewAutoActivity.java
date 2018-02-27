@@ -15,7 +15,6 @@ import android.webkit.WebViewClient;
 import com.google.android.apps.auto.sdk.CarActivity;
 
 import org.apache.commons.text.StringEscapeUtils;
-import org.openauto.webviewauto.favorites.FavoriteManager;
 import org.openauto.webviewauto.fragments.BrowserFragment;
 import org.openauto.webviewauto.webview.WebChromeClientExtended;
 
@@ -43,6 +42,8 @@ public class WebViewAutoActivity extends CarActivity {
     public void onCreate(Bundle bundle) {
 
         //android.os.Debug.waitForDebugger();
+
+        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
 
         ActivityAccessHelper.getInstance().setActivity(this);
 
@@ -107,8 +108,7 @@ public class WebViewAutoActivity extends CarActivity {
         mCurrentFragmentTag = tag;
     }
 
-    private final FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks
-            = new FragmentManager.FragmentLifecycleCallbacks() {
+    private final FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentStarted(FragmentManager fm, Fragment f) {
             updateStatusBarTitle();

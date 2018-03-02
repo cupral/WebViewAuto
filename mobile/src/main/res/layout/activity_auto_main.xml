@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/container"
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <org.openauto.webviewauto.webview.MenuWebView
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+        </org.openauto.webviewauto.webview.MenuWebView>
+
+        <org.openauto.webviewauto.webview.ContentWebView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+        </org.openauto.webviewauto.webview.ContentWebView>
+    </LinearLayout>
+
+    <org.openauto.webviewauto.webview.KeyboardWebView
+        android:id="@+id/keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone">
+    </org.openauto.webviewauto.webview.KeyboardWebView>
+
+
+</FrameLayout>

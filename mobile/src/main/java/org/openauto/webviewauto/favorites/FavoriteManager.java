@@ -3,7 +3,6 @@ package org.openauto.webviewauto.favorites;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.openauto.webviewauto.WebViewContext;
 import org.openauto.webviewauto.utils.IOHandler;
 import org.openauto.webviewauto.utils.NetworkReaderTask;
 
@@ -40,7 +39,7 @@ public class FavoriteManager {
         favorites.add(new FavoriteEnt("MENU_FAVORITES_CNN","CNN","https://edition.cnn.com/", false));
 
         for(FavoriteEnt e : favorites){
-            NetworkReaderTask nt = new NetworkReaderTask(WebViewContext.getAppContext(), e, true);
+            NetworkReaderTask nt = new NetworkReaderTask(e, true);
             nt.execute();
         }
 

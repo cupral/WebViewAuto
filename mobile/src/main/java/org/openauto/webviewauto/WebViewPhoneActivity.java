@@ -36,7 +36,7 @@ public class WebViewPhoneActivity extends AppCompatActivity {
                 final FavoriteEnt newFav = new FavoriteEnt("MENU_FAVORITES_" + new_fav_title.getText().toString(), new_fav_title.getText().toString(), new_fav_url.getText().toString(), new_fav_desktop_mode.isChecked());
 
                 //Load icon
-                final NetworkReaderTask nt = new NetworkReaderTask(this, newFav, false);
+                final NetworkReaderTask nt = new NetworkReaderTask(newFav, false);
                 nt.execute();
 
                 FavoriteManager.getInstance().addFavorite(newFav);

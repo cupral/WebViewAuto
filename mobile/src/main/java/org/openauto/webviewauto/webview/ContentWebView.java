@@ -207,8 +207,13 @@ public class ContentWebView extends BaseWebView {
         final String enteredText = HtmlUtils.toJavascript(input);
         final StringBuilder script = new StringBuilder();
         script.append("var wwaevent = new Event('change'); ");
-        script.append("if(document.activeElement.isContentEditable){document.activeElement.innerText = \"").append(enteredText).append("\";}");
-        script.append("else {document.activeElement.value = \"").append(enteredText).append("\";} document.activeElement.dispatchEvent(wwaevent);");
+        script.append("if(document.activeElement.isContentEditable){");
+        script.append("  document.activeElement.innerText = \"").append(enteredText).append("\";}");
+        script.append("else {");
+        script.append("  document.activeElement.value = \"").append(enteredText).append("\";");
+        //script.append("  document.activeElement.setAttribute('value','").append(enteredText).append("')");
+        script.append("}");
+        script.append("document.activeElement.dispatchEvent(wwaevent);");
 
         post(() -> {
             evaluateJavascript(script.toString(), null);
